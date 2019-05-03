@@ -15,12 +15,12 @@
             <Font name="Ubuntu Regular" size="13.0" />
          </font>
       </Button>
-      <Button fx:id="homeScreenReturnedBtn" layoutX="27.0" layoutY="345.0" mnemonicParsing="false"  opacity="0.0" prefHeight="30.0" prefWidth="220.0" text="Visszavétel felvétele">
+      <Button fx:id="homeScreenReturnedBtn" layoutX="27.0" layoutY="345.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="220.0" text="Visszavétel felvétele">
          <font>
             <Font name="Ubuntu Regular" size="13.0" />
          </font>
       </Button>
-      <Button fx:id="homeScreenAddBookBtn" layoutX="27.0" layoutY="387.0" mnemonicParsing="false" onAction="#triggerAddBook" opacity="0.0" prefHeight="30.0" prefWidth="220.0" text="Új könyv felvétele">
+      <Button fx:id="homeScreenAddBookBtn" layoutX="27.0" layoutY="387.0" mnemonicParsing="false" onAction="#triggerAddBookScreen" opacity="0.0" prefHeight="30.0" prefWidth="220.0" text="Új könyv felvétele">
          <font>
             <Font name="Ubuntu Regular" size="13.0" />
          </font>

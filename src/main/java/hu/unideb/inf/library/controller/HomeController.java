@@ -74,7 +74,7 @@ public class HomeController implements Initializable{
      * @throws IOException
      */
     @FXML
-    private void triggerAddBook(Event event) throws IOException {
+    private void triggerAddBookScreen(Event event) throws IOException {
         try {
             // TODO: Log info: Új könyv hozzáadása ablak megnyitva.
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddBookScreen.fxml"));

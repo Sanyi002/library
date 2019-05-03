@@ -1,30 +1,63 @@
 package hu.unideb.inf.library.model.pojo;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class Book {
-    private int id;
 
+    /**
+     * A könyv isbn száma.
+     */
+    @Id
     private String isbn;
 
+    /**
+     * A könyv címe.
+     */
+    @Column (name = "title")
     private String title;
 
+    /**
+     * A könyv szerzője.
+     */
+    @Column (name = "author")
     private String author;
 
+    /**
+     * A könyv kiadója
+     */
+    @Column (name = "publisher")
     private String publisher;
 
-    private LocalDateTime releaseDate;
+    /**
+     * A könyv megjelenésének éve.
+     */
+    @Column (name = "releaseDate")
+    private int releaseDate;
 
+    /**
+     * A könyv terjedelme.
+     */
+    @Column (name = "pages")
     private int pages;
 
+    /**
+     * A könyv tárgyszavai.
+     */
+    @Column (name = "subjects")
     private List<String> subjects;
 
+    /**
+     * A könyv raktári jelzete.
+     */
+    @Column (name = "storageSign")
     private String storageSign;
 
     public Book(){}
 
-    public Book(String isbn, String title, String author, String publisher, LocalDateTime releaseDate, int pages, List<String> subjects, String storageSign) {
+    public Book(String isbn, String title, String author, String publisher, int releaseDate, int pages, List<String> subjects, String storageSign) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -33,10 +66,6 @@ public class Book {
         this.pages = pages;
         this.subjects = subjects;
         this.storageSign = storageSign;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getIsbn() {
@@ -71,11 +100,11 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public LocalDateTime getReleaseDate() {
+    public int getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(LocalDateTime releaseDate) {
+    public void setReleaseDate(int releaseDate) {
         this.releaseDate = releaseDate;
     }
 
