@@ -57,8 +57,7 @@ public class User {
     @Column (name = "admin")
     private boolean admin;
 
-    public User() {
-    }
+    public User() {}
 
     /**
      * Konstruktor, amely létrehoz egy User objektumot.

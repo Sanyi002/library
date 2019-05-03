@@ -1,10 +1,10 @@
 package hu.unideb.inf.library.model.pojo;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
-import java.util.List;
 
+@Entity
 public class Book {
 
     /**
@@ -47,7 +47,7 @@ public class Book {
      * A könyv tárgyszavai.
      */
     @Column (name = "subjects")
-    private List<String> subjects;
+    private String subjects;
 
     /**
      * A könyv raktári jelzete.
@@ -57,7 +57,18 @@ public class Book {
 
     public Book(){}
 
-    public Book(String isbn, String title, String author, String publisher, int releaseDate, int pages, List<String> subjects, String storageSign) {
+    /**
+     * Konstruktor, amely létrehoz egy Book objektumot.
+     * @param isbn a könyv ISBN száma
+     * @param title a könyv címe
+     * @param author a könyv szerzője
+     * @param publisher a könyv kiadója
+     * @param releaseDate a könyv megjelenésének éve
+     * @param pages a könyv terjedelme
+     * @param subjects a könyv tárgyszavai
+     * @param storageSign a könyv raktári jelzete
+     */
+    public Book(String isbn, String title, String author, String publisher, int releaseDate, int pages, String subjects, String storageSign) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
@@ -68,66 +79,130 @@ public class Book {
         this.storageSign = storageSign;
     }
 
+    /**
+     * Visszaadja a könyv ISBN számát
+     * @return könyv ISBN száma
+     */
     public String getIsbn() {
         return isbn;
     }
 
+    /**
+     * Beállítja a könyv ISBN számát.
+     * @param isbn a könyv ISBN száma
+     */
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
+    /**
+     * Visszaadja a könyv címét.
+     * @return a könyv címe
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Beállítja a könyv címét.
+     * @param title a könyv címe
+     */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * Visszaadja a könyv szerzőjét.
+     * @return a könyv szerzője
+     */
     public String getAuthor() {
         return author;
     }
 
+    /**
+     * Beállítja a könyv szerzőjét.
+     * @param author a könyv szerzője
+     */
     public void setAuthor(String author) {
         this.author = author;
     }
 
+    /**
+     * Visszaadja a könyv kiadóját.
+     * @return a könyv kiadója
+     */
     public String getPublisher() {
         return publisher;
     }
 
+    /**
+     * Beállítja a könyv szerzőjét.
+     * @param publisher a könyv szerzője
+     */
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
+    /**
+     * Visszaadja a könyv megjelenésének évét.
+     * @return a könyv megjelenésének éve
+     */
     public int getReleaseDate() {
         return releaseDate;
     }
 
+    /**
+     * Beállítja a könyv megjelenésének az évét.
+     * @param releaseDate a könyv megjelenésének éve
+     */
     public void setReleaseDate(int releaseDate) {
         this.releaseDate = releaseDate;
     }
 
+    /**
+     * Visszaadja a könyv terjedelmét.
+     * @return a könyv terjedelme
+     */
     public int getPages() {
         return pages;
     }
 
+    /**
+     * Beállítja a könyv terjedelmét.
+     * @param pages a könyv terjedelme
+     */
     public void setPages(int pages) {
         this.pages = pages;
     }
 
-    public List<String> getSubjects() {
+    /**
+     * Visszaadja a könyv tárgyszavait.
+     * @return a könyv tárgyszavai
+     */
+    public String getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(List<String> subjects) {
+    /**
+     * Beállítja a könyv tárgyszavait.
+     * @param subjects a könyv tárgyszavai
+     */
+    public void setSubjects(String subjects) {
         this.subjects = subjects;
     }
 
+    /**
+     * Visszaadja a könyv raktári jelzetét.
+     * @return a könyv raktári jelzete
+     */
     public String getStorageSign() {
         return storageSign;
     }
 
+    /**
+     * Beállítja a könyv raktári jelzetét.
+     * @param storageSign a könyv raktári jelzete
+     */
     public void setStorageSign(String storageSign) {
         this.storageSign = storageSign;
     }

@@ -32,12 +32,14 @@ public class UserModel implements AutoCloseable{
         User user = null;
 
         try {
+            // TODO: Logger info: Sikeres felhasználó lekérés loggolása
             TypedQuery<User> query = em.createQuery("" +
                     "SELECT u " +
                     "FROM User u " +
                     "WHERE userName = '" + userName + "' and password = '" + password + "'", User.class);
             user = query.getSingleResult();
         } catch (Exception ex) {
+            // TODO: Logger info: Hiba loggolása
             System.out.println("hiba!! " + ex.getMessage());
         }
 
