@@ -1,11 +1,18 @@
 package hu.unideb.inf.library.controller;
 
 import hu.unideb.inf.library.model.pojo.User;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -60,6 +67,28 @@ public class HomeController implements Initializable{
      */
     @FXML
     private Button homeScreenAddBookBtn;
+
+    /**
+     * Új könyv hozzáadása ablak megnyitása.
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    private void triggerAddBook(Event event) throws IOException {
+        try {
+            // TODO: Log info: Új könyv hozzáadása ablak megnyitva.
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddBookScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setTitle("Library - Add new book");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // TODO: Log info: Új könyv hozzáadása ablak megnyitása sikertelen.
+        }
+    }
 
     /**
      * Bejelentkezett felhasználó nevének kiíratása.
