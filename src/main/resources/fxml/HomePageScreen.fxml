@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.library.controller.HomeController">
+   <children>
+      <Button fx:id="homeScreenLoanBtn" layoutX="27.0" layoutY="304.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="220.0" text="Kölcsönzés felvétele">
+         <font>
+            <Font name="Ubuntu Regular" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="homeScreenReturnedBtn" layoutX="27.0" layoutY="345.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="220.0" text="Visszavétel felvétele">
+         <font>
+            <Font name="Ubuntu Regular" size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="homeScreenAddBookBtn" layoutX="27.0" layoutY="387.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="220.0" text="Új könyv felvétele">
+         <font>
+            <Font name="Ubuntu Regular" size="13.0" />
+         </font>
+      </Button>
+      <Label layoutX="290.0" layoutY="33.0" text="Könyvek">
+         <font>
+            <Font name="Ubuntu Bold" size="30.0" />
+         </font>
+      </Label>
+      <TableView layoutX="290.0" layoutY="86.0" prefHeight="577.0" prefWidth="878.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Label layoutX="27.0" layoutY="513.0" text="Keresés">
+         <font>
+            <Font name="Ubuntu Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextField layoutX="80.0" layoutY="545.0" prefHeight="30.0" prefWidth="167.0" />
+      <Label layoutX="27.0" layoutY="552.0" text="Cím">
+         <font>
+            <Font name="Ubuntu Regular" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="595.0" text="Szerző">
+         <font>
+            <Font name="Ubuntu Regular" size="13.0" />
+         </font>
+      </Label>
+      <TextField layoutX="80.0" layoutY="588.0" prefHeight="30.0" prefWidth="167.0" />
+      <Button layoutX="27.0" layoutY="633.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0" text="Keresés" />
+      <Button layoutX="27.0" layoutY="180.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0" text="Kölcsönzések">
+         <font>
+            <Font name="Ubuntu Regular" size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="27.0" layoutY="218.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0" text="Előjegyzések">
+         <font>
+            <Font name="Ubuntu Regular" size="13.0" />
+         </font>
+      </Button>
+      <Separator layoutX="27.0" layoutY="266.0" prefHeight="1.0" prefWidth="220.0" />
+      <Label fx:id="loggedUserUsername" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="138.0" layoutY="68.0" prefHeight="20.0" prefWidth="109.0" textFill="#4a4a4a" wrapText="true">
+         <font>
+            <Font name="Ubuntu Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="71.0" text="Felhasználónév:">
+         <font>
+            <Font name="Ubuntu Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="loggedUserAdmin" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="138.0" layoutY="97.0" prefHeight="20.0" prefWidth="109.0" textAlignment="RIGHT" textFill="#4a4a4a" wrapText="true">
+         <font>
+            <Font name="Ubuntu Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="100.0" text="Admin jog:">
+         <font>
+            <Font name="Ubuntu Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="41.0" text="Név:">
+         <font>
+            <Font name="Ubuntu Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="loggedUserName" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="138.0" layoutY="39.0" prefHeight="20.0" prefWidth="109.0" textFill="#4a4a4a" wrapText="true">
+         <font>
+            <Font name="Ubuntu Bold" size="13.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
