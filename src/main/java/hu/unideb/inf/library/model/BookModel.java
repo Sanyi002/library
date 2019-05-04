@@ -38,10 +38,16 @@ public class BookModel implements AutoCloseable {
         return list;
      }
 
+    /**
+     * Könyv keresése cím és/vagy szerző alapján.
+     * @param title a könyv címe
+     * @param author a könyv szerzője
+     * @return a keresett könyv(ek) listája
+     */
     public List<Book> getSearchedBooks(String title, String author) {
         List<Book> result = null;
 
-        if(!title.isBlank() && author.isBlank()) {
+        if(!title.isEmpty() && author.isEmpty()) {
             try {
                 TypedQuery<Book> query = em.createQuery(
                         "SELECT b FROM Book b WHERE title LIKE '%" + title + "%'", Book.class);
@@ -49,7 +55,7 @@ public class BookModel implements AutoCloseable {
             } catch (Exception ex) {
                 // TODO: Log infó: Hiba
             }
-        } else if(!author.isBlank() && title.isBlank()) {
+        } else if(!author.isEmpty() && title.isEmpty()) {
             try {
                 TypedQuery<Book> query = em.createQuery(
                         "SELECT b FROM Book b WHERE author LIKE '%" + author + "%'", Book.class);

@@ -6,9 +6,12 @@ import hu.unideb.inf.library.model.pojo.Book;
 import hu.unideb.inf.library.model.pojo.User;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,12 +39,28 @@ public class HomeController implements Initializable {
         isAdminMenu();
     }
 
+    /**
+     * Inicializáció.
+     * A BookModel osztály példányosítása.
+     * A táblázat ürítése majd az adatbázisban lévő könyvekkel való feltöltés.
+     * A kiválasztást figyelő event.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         bm = new BookModel();
         homeScreenTable.getColumns().removeAll();
         showAllBook();
 
+        homeScreenTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getClickCount() == 2) {
+                    triggerSelectedBookScreen();
+                }
+            }
+        });
     }
 
     /**
@@ -63,6 +83,11 @@ public class HomeController implements Initializable {
      * Itt kerül eltárolásra a bejelentkezett felhasználó.
      */
     private User user;
+
+    /**
+     * A táblázatban megjelenő Book osztályok egy kiválaszott példánya.
+     */
+    private Book selectedBook = null;
 
     /**
      * User beállítása.
@@ -108,21 +133,39 @@ public class HomeController implements Initializable {
     @FXML
     private Button homeScreenAddBookBtn;
 
+    /**
+     * Táblázat a könyvek kilistázáshoz.
+     */
     @FXML
     private TableView homeScreenTable;
 
+    /**
+     * Táblázat egy oszlopa a könyv címének.
+     */
     @FXML
     private TableColumn<Book, String> titleColumn = null;
 
+    /**
+     * Táblázat egy oszlopa a könyv szerzőjének.
+     */
     @FXML
     private TableColumn<Book, String> authorColumn = null;
 
+    /**
+     * Táblázat egy oszlopa a könyv kiadásának dátumához.
+     */
     @FXML
     private TableColumn<Book, String> releaseDateColumn = null;
 
+    /**
+     * A könyv címének inputja, a kereséshez.
+     */
     @FXML
     private TextField searchedBookTitleInput;
 
+    /**
+     * A könyv címének szerzője, a kereséshez.
+     */
     @FXML
     private TextField searchedBookAuthorInput;
 
@@ -160,6 +203,10 @@ public class HomeController implements Initializable {
         homeScreenTable.setItems(allBook);
     }
 
+    /**
+     * A táblázatban megjelenített könyvek frissítése.
+     * @param event
+     */
     @FXML
     private void updateHomeTable(Event event) {
         // TODO
@@ -172,11 +219,13 @@ public class HomeController implements Initializable {
     private void triggerSearch(Event event) {
         initTableColumns();
 
-        searchedList.addAll(bm.getSearchedBooks(searchedBookTitleInput.getText(), searchedBookAuthorInput.getText()));
-        System.out.println(searchedList);
+        if(!searchedBookTitleInput.getText().isBlank() || !searchedBookAuthorInput.getText().isBlank()) {
+            searchedList.addAll(bm.getSearchedBooks(searchedBookTitleInput.getText(), searchedBookAuthorInput.getText()));
+        }
 
         if(!searchedList.isEmpty()) {
             homeScreenTable.setItems(searchedList);
+
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Library - Info");
@@ -190,6 +239,29 @@ public class HomeController implements Initializable {
             showAllBook();
         }
 
+    }
+
+    private void triggerSelectedBookScreen() {
+
+        if(homeScreenTable.getSelectionModel().getSelectedItem() != null) {
+            Book b1 = (Book) homeScreenTable.getSelectionModel().getSelectedItem();
+
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SelectedBookScreen.fxml"));
+                Parent root = fxmlLoader.load();
+                Stage stage = new Stage();
+                Scene scene = new Scene(root);
+                stage.setTitle("Library - Add new book");
+                stage.setScene(scene);
+                stage.show();
+
+                System.out.println("Kiválasztott könyv ablaka megnyitva!");
+                // TODO: Log infó: Kiválasztott könyv ablaka megnyitva.
+            } catch (IOException ex) {
+                // TODO: Log infó: Kiválasztott könyv ablak megnyitása sikertelen.
+            }
+
+        }
     }
 
     /**
@@ -208,8 +280,8 @@ public class HomeController implements Initializable {
             stage.setTitle("Library - Add new book");
             stage.setScene(scene);
             stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
             // TODO: Log info: Új könyv hozzáadása ablak megnyitása sikertelen.
         }
     }
