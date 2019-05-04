@@ -8,7 +8,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class UserModel implements AutoCloseable{
+public class UserModel implements AutoCloseable {
 
     /**
      * EntityManager osztály egy példánya.

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.library.controller.HomeController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1222.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.library.controller.HomeController">
    <children>
       <Button fx:id="homeScreenLoanBtn" layoutX="27.0" layoutY="304.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="220.0" text="Kölcsönzés felvétele">
          <font>
@@ -30,18 +31,13 @@
             <Font name="Ubuntu Bold" size="30.0" />
          </font>
       </Label>
-      <TableView layoutX="290.0" layoutY="86.0" prefHeight="577.0" prefWidth="878.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
-        </columns>
-      </TableView>
+      <TableView fx:id="homeScreenTable" layoutX="290.0" layoutY="97.0" prefHeight="569.0" prefWidth="903.0" />
       <Label layoutX="27.0" layoutY="513.0" text="Keresés">
          <font>
             <Font name="Ubuntu Bold" size="15.0" />
          </font>
       </Label>
-      <TextField layoutX="80.0" layoutY="545.0" prefHeight="30.0" prefWidth="167.0" />
+      <TextField fx:id="searchedBookTitleInput" layoutX="80.0" layoutY="545.0" prefHeight="30.0" prefWidth="167.0" />
       <Label layoutX="27.0" layoutY="552.0" text="Cím">
          <font>
             <Font name="Ubuntu Regular" size="13.0" />
@@ -52,8 +48,8 @@
             <Font name="Ubuntu Regular" size="13.0" />
          </font>
       </Label>
-      <TextField layoutX="80.0" layoutY="588.0" prefHeight="30.0" prefWidth="167.0" />
-      <Button layoutX="27.0" layoutY="633.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0" text="Keresés" />
+      <TextField fx:id="searchedBookAuthorInput" layoutX="80.0" layoutY="588.0" prefHeight="30.0" prefWidth="167.0" />
+      <Button layoutX="27.0" layoutY="633.0" mnemonicParsing="false" onAction="#triggerSearch" prefHeight="30.0" prefWidth="220.0" text="Keresés" />
       <Button layoutX="27.0" layoutY="180.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0" text="Kölcsönzések">
          <font>
             <Font name="Ubuntu Regular" size="13.0" />
@@ -95,5 +91,10 @@
             <Font name="Ubuntu Bold" size="13.0" />
          </font>
       </Label>
+      <Button defaultButton="true" layoutX="1115.0" layoutY="37.0" mnemonicParsing="false" onAction="#updateHomeTable" prefHeight="27.0" prefWidth="78.0" text="Frissítés">
+         <font>
+            <Font name="Ubuntu Regular" size="12.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
