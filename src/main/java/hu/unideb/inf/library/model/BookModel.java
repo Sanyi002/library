@@ -1,10 +1,12 @@
 package hu.unideb.inf.library.model;
 
 import hu.unideb.inf.library.model.pojo.Book;
+import javafx.scene.control.TextField;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class BookModel implements AutoCloseable {
@@ -37,6 +39,31 @@ public class BookModel implements AutoCloseable {
         }
         return list;
      }
+
+    /**
+     * Új könyv hozzáadása az adatbázishoz.
+     * // TODO
+     * @param isbn
+     * @param title
+     * @param author
+     * @param publisher
+     * @param releaseDate
+     * @param pages
+     * @param subjects
+     * @param storageSign
+     */
+    public void pushNewBook(String isbn, String title, String author, String publisher, int releaseDate, int pages, String subjects, String storageSign) {
+        Book nb = new Book(isbn, title, author, publisher, releaseDate, pages, subjects, storageSign);
+        try {
+            em.getTransaction().begin();
+            em.persist(nb);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            // TODO: Log infó: Hiba az új könyv hozzáadásakor
+            System.out.println("Hiba az új könyv hozzáadásakor: "+ ex);
+        }
+
+    }
 
     /**
      * Könyv keresése cím és/vagy szerző alapján.
@@ -74,6 +101,43 @@ public class BookModel implements AutoCloseable {
         }
 
         return result;
+    }
+
+    /**
+     * A módosított könyv frissítése az adatbázisban.
+     * @param book a módosított könyv egy példánya
+     */
+    public void updateBook(Book book) {
+        try {
+            em.getTransaction().begin();
+            em.merge(book);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            // TODO: Log infó: Nem sikerült a könyv frissítése.
+        }
+    }
+
+    /**
+     * Könyv hozzáadása/frissítése esetén az input értékékek validálása.
+     * @param inputs
+     * @return int érték: 1 = sikeres, 0 = hibás mező érték, -1 = üres mezők
+     */
+    public int bookValidation(Map<String, TextField> inputs) {
+        if(inputs.entrySet().stream().anyMatch(textField -> textField.getValue().getText().trim().isEmpty())) {
+            return -1;
+        } else {
+            try {
+                Integer.parseInt(inputs.get("bookPagesInput").getText());
+            } catch (NumberFormatException ex) {
+                return 0;
+            }
+            try {
+                Integer.parseInt(inputs.get("bookReleaseDateInput").getText());
+            } catch (NumberFormatException ex) {
+                return 0;
+            }
+        }
+        return 1;
     }
 
     /**

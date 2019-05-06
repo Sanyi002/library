@@ -66,7 +66,7 @@
       <Button fx:id="selectedBookLoanBtn" layoutX="40.0" layoutY="465.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" text="Kölcsönzés felvétele" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" />
       <Button layoutX="414.0" layoutY="415.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="137.0" text="Előjegyzés" AnchorPane.rightAnchor="40.0" />
       <Button fx:id="selectedBookEditBtn" layoutX="40.0" layoutY="477.0" mnemonicParsing="false" onAction="#selectedBookEdit" prefHeight="30.0" prefWidth="160.0" text="Szerkesztés" AnchorPane.leftAnchor="40.0" />
-      <Button fx:id="selectedBookSaveBtn" defaultButton="true" layoutX="440.0" layoutY="473.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" text="Módosítások mentése" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+      <Button fx:id="selectedBookSaveBtn" defaultButton="true" layoutX="440.0" layoutY="473.0" mnemonicParsing="false" onAction="#selectedBookSave" prefHeight="30.0" prefWidth="160.0" text="Módosítások mentése" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" />
       <Label layoutX="42.0" layoutY="423.0" text="Státusz:">
          <font>
             <Font name="Ubuntu Regular" size="14.0" />

@@ -1,8 +1,11 @@
 package hu.unideb.inf.library.model.pojo;
 
+import javafx.scene.control.TextField;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Map;
 
 @Entity
 public class Book {
@@ -205,5 +208,24 @@ public class Book {
      */
     public void setStorageSign(String storageSign) {
         this.storageSign = storageSign;
+    }
+
+    /**
+     * Két könyv adatainak összehasonlítása.
+     * Csak akkor add vissza igaz értéket, ha minden adat megegyezik.
+     * @param b1 vizsgált könyv egy példánya
+     * @param b2 vizsgált könyv egy példánya
+     * @return logikai érték
+     */
+    public boolean bookEquals(Book b1, Book b2) {
+        if(b1.getIsbn().equals(b2.getIsbn()) && b1.getTitle().equals(b2.getTitle()) &&
+            b1.getAuthor().equals(b2.getAuthor()) && b1.getPublisher().equals(b2.getPublisher()) &&
+            b1.getReleaseDate() == b2.getReleaseDate() && b1.getPages() == b2.getPages() &&
+            b1.getSubjects().equals(b2.getSubjects()) && b1.getStorageSign().equals(b2.getStorageSign())) {
+
+            return true;
+        } else {
+            return false;
+        }
     }
 }

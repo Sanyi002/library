@@ -1,6 +1,8 @@
 package hu.unideb.inf.library.controller;
 
+import hu.unideb.inf.library.model.BookModel;
 import hu.unideb.inf.library.model.BookingModel;
+import hu.unideb.inf.library.model.pojo.Book;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,21 +12,19 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AddBookController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.bm = new BookingModel();
+        this.bm = new BookModel();
     }
 
     /**
      * BookingModel osztály egy példánya.
      */
-    private BookingModel bm;
+    private BookModel bm;
 
     /**
      * A könyv hozzáadása ablak ISBN szám mezőjének input értéke.
@@ -81,9 +81,9 @@ public class AddBookController implements Initializable {
     private Label addBookErrorMsg;
 
     /**
-     * Lista az input értékekhez.
+     * Map az input értékekhez.
      */
-    private List<TextField> inputFields;
+    private Map<String, TextField> inputFields = new HashMap<String, TextField>();
 
     /**
      * Könyv hozzáadása az adatbázishoz.
@@ -93,29 +93,30 @@ public class AddBookController implements Initializable {
     @FXML
     // TODO: Log infók
     private void triggerAddBook(Event event) {
-        inputFields = Arrays.asList(bookIsbnInput,bookTitleInput, bookAuthorInput, bookPublisherInput, bookPagesInput,bookSubjectsInput, bookStorageSignInput, bookReleaseDateInput);
+        inputFields.put("bookIsbnInput",bookIsbnInput);
+        inputFields.put("bookTitleInput", bookTitleInput);
+        inputFields.put("bookAuthorInput", bookAuthorInput);
+        inputFields.put("bookPublisherInput", bookPublisherInput);
+        inputFields.put("bookPagesInput", bookPagesInput);
+        inputFields.put("bookSubjectsInput", bookSubjectsInput);
+        inputFields.put("bookStorageSignInput", bookStorageSignInput);
+        inputFields.put("bookReleaseDateInput", bookReleaseDateInput);
 
-        if(inputFields.stream().anyMatch(textField -> textField.getText().trim().isEmpty())) {
+        if(bm.bookValidation(inputFields) == -1) {
+            addBookErrorMsg.setStyle("-fx-text-fill: RED");
             addBookErrorMsg.setText("Új könyv hozzáadása sikertelen! Minden mező kitöltése kötelező!");
+        } else if(bm.bookValidation(inputFields) == 0) {
+            addBookErrorMsg.setStyle("-fx-text-fill: RED");
+            addBookErrorMsg.setText("Új könyv hozzáadása sikertelen! Hibás mező érték!");
         } else {
-            try {
-                int bookPagesInputInt = Integer.parseInt(bookPagesInput.getText());
+            bm.pushNewBook(bookIsbnInput.getText(),bookTitleInput.getText(),bookAuthorInput.getText(),
+                bookPublisherInput.getText(),Integer.parseInt(bookReleaseDateInput.getText()),
+                Integer.parseInt(bookPagesInput.getText()),bookSubjectsInput.getText(),
+                bookStorageSignInput.getText());
 
-                try {
-                    int bookReleaseDateInputInt = Integer.parseInt(bookReleaseDateInput.getText());
-
-                    bm.pushNewBook(bookIsbnInput.getText(),bookTitleInput.getText(),bookAuthorInput.getText(),bookPublisherInput.getText(),bookReleaseDateInputInt,bookPagesInputInt,bookSubjectsInput.getText(),bookStorageSignInput.getText());
-
-                    addBookErrorMsg.setStyle("-fx-text-fill: GREEN");
-                    addBookErrorMsg.setText("Új könyv hozzáadva az adatbázishoz!");
-                    inputFields.forEach(textField -> textField.clear());
-                } catch (NumberFormatException ex) {
-                    addBookErrorMsg.setText("Új könyv hozzáadása sikertelen! Hibás megjelenés éve mező érték!");
-                }
-            } catch (NumberFormatException ex) {
-                addBookErrorMsg.setText("Új könyv hozzáadása sikertelen! Hibás terjedelem mező érték!");
-            }
-
+            addBookErrorMsg.setStyle("-fx-text-fill: GREEN");
+            addBookErrorMsg.setText("Új könyv hozzáadva az adatbázishoz!");
+            inputFields.forEach((k,v) -> v.clear());
         }
 
     }

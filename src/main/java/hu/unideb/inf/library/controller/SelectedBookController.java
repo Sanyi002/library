@@ -1,17 +1,17 @@
 package hu.unideb.inf.library.controller;
 
+import hu.unideb.inf.library.model.BookModel;
 import hu.unideb.inf.library.model.pojo.Book;
 import hu.unideb.inf.library.model.pojo.User;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class SelectedBookController implements Initializable {
 
@@ -22,15 +22,26 @@ public class SelectedBookController implements Initializable {
     private User loggedUser;
 
     /**
-     * TextField-ek listája, a kiválaszott könyv adatait vagy szerekeztés esetén a bemeneti adatokat tárolják.
+     * Map az input értékekhez.
      */
-    private List<TextField> inputFields;
+    private Map<String, TextField> inputFields = new HashMap<String, TextField>();
 
     /**
      * A Book osztály egy példánya.
      * A kiválasztott könyv adatait tárolja.
      */
     private Book selectedBook;
+
+    /**
+     * A Book osztály egy példánya.
+     * A módosítottó könyv adatait tárolja.
+     */
+    private Book savedBook;
+
+    /**
+     * A BookModel egy példánya.
+     */
+    private BookModel bm;
 
     /**
      * A kiválasztott könyv ISBN száma.
@@ -101,7 +112,7 @@ public class SelectedBookController implements Initializable {
     /**
      * A kiválaszott Book objektum és User objektum átadása a kontrollernek.
      * Az adatok betöltése.
-     * A betöltés után alapértelmezetten letiltjuk a szerkesztést.
+     * TextField-ek belerakása a map-ba, majd alapértelmezetten letiltjuk rajtuk a szerkesztést.
      * Az admin funkció gombok betöltése.
      * @param book a kiválasztott Book osztály egy példánya
      */
@@ -111,21 +122,29 @@ public class SelectedBookController implements Initializable {
 
         loadData();
 
-        inputFields.forEach(textField -> textField.setEditable(false));
+        inputFields.put("bookIsbnInput",selectedBookIsbn);
+        inputFields.put("bookTitleInput", selectedBookTitle);
+        inputFields.put("bookAuthorInput", selectedBookAuthor);
+        inputFields.put("bookPublisherInput", selectedBookPublisher);
+        inputFields.put("bookPagesInput", selectedBookPages);
+        inputFields.put("bookSubjectsInput", selectedBookSubjects);
+        inputFields.put("bookStorageSignInput", selectedBookStorageSign);
+        inputFields.put("bookReleaseDateInput", selectedBookReleaseDate);
+        inputFields.forEach((k,v) -> v.setEditable(false));
 
         initAdminButtons();
     }
 
     /**
      * Inicializáció.
-     * A TextField-eket betöltjük a listába.
+     * A TextField-eket betöltjük a map-ba.
+     * A BookModel osztály példányosítása.
      * @param url
      * @param resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        inputFields = Arrays.asList(selectedBookIsbn, selectedBookTitle, selectedBookAuthor, selectedBookPublisher,
-                selectedBookPages, selectedBookSubjects, selectedBookReleaseDate, selectedBookStorageSign);
+        bm = new BookModel();
     }
 
     /**
@@ -162,12 +181,61 @@ public class SelectedBookController implements Initializable {
      * @param event egérkattintás eseménye
      */
     @FXML
-    private void selectedBookEdit(Event event){
+    private void selectedBookEdit(Event event) {
         if(loggedUser.getAdmin()) {
-            inputFields.forEach(textField -> textField.setEditable(true));
+            inputFields.forEach((k,v) -> v.setEditable(true));
             selectedBookSaveBtn.setVisible(true);
             // TODO: Log infó
         }
+    }
 
+    /**
+     * A frissült adatok tárolása.
+     * Ha a validálás sikeres volt és történt módosítás.
+     * @param event
+     */
+    @FXML
+    private void selectedBookSave(Event event) {
+        inputFields.put("bookIsbnInput",selectedBookIsbn);
+        inputFields.put("bookTitleInput", selectedBookTitle);
+        inputFields.put("bookAuthorInput", selectedBookAuthor);
+        inputFields.put("bookPublisherInput", selectedBookPublisher);
+        inputFields.put("bookPagesInput", selectedBookPages);
+        inputFields.put("bookSubjectsInput", selectedBookSubjects);
+        inputFields.put("bookStorageSignInput", selectedBookStorageSign);
+        inputFields.put("bookReleaseDateInput", selectedBookReleaseDate);
+
+        if(bm.bookValidation(inputFields) == 1) {
+            savedBook = new Book(
+                selectedBookIsbn.getText(), selectedBookTitle.getText(),
+                selectedBookAuthor.getText(), selectedBookPublisher.getText(),
+                Integer.parseInt(selectedBookReleaseDate.getText()), Integer.parseInt(selectedBookPages.getText()),
+                selectedBookSubjects.getText(), selectedBookStorageSign.getText());
+
+            if(!selectedBook.bookEquals(selectedBook, savedBook)) {
+                bm.updateBook(savedBook);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Library - Info");
+                alert.setHeaderText(null);
+                alert.setContentText("Sikeres módosítás!");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Library - Info");
+                alert.setHeaderText(null);
+                alert.setContentText("Nem menthető a módosítás! Egyik mező értéke sem változott!");
+                alert.showAndWait();
+            }
+
+        } else if(bm.bookValidation(inputFields) == 0) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Library - Info");
+            alert.setHeaderText(null);
+            alert.setContentText("Nem menthető a módosítás! Hibás mező érték!");
+            alert.showAndWait();
+        }
+
+        // TODO: Log infók
+        System.out.println("Kattintás megtörtént a mentés gombra.");
     }
 }
