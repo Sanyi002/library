@@ -7,12 +7,74 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.library.controller.SelectedBookController">
+<AnchorPane prefHeight="587.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.library.controller.SelectedBookController">
    <children>
-      <Label layoutX="40.0" layoutY="34.0" text="Kiválasztott könyv ablaka">
+      <Label alignment="TOP_LEFT" layoutX="40.0" layoutY="32.0" prefHeight="66.0" prefWidth="377.0" text="Rejtő Jenő: Karátos autó (1995)" wrapText="true" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="183.0" AnchorPane.topAnchor="30.0">
          <font>
             <Font name="Ubuntu Bold" size="20.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="40.0" layoutY="116.0" text="ISBN szám:" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Ubuntu Regular" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="155.0" text="Cím:" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Ubuntu Regular" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="193.0" text="Szerző:" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Ubuntu Regular" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="231.0" text="Kiadó:" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Ubuntu Regular" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="346.0" text="Megjelenés éve:" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Ubuntu Regular" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="308.0" text="Terjedelem:" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Ubuntu Regular" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="269.0" text="Tárgyszavak:" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Ubuntu Regular" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="selectedBookIsbn" editable="false" layoutX="260.0" layoutY="111.0" prefHeight="25.0" prefWidth="300.0" AnchorPane.rightAnchor="40.0" />
+      <TextField fx:id="selectedBookTitle" layoutX="260.0" layoutY="149.0" prefHeight="25.0" prefWidth="300.0" AnchorPane.rightAnchor="40.0" />
+      <TextField fx:id="selectedBookAuthor" layoutX="260.0" layoutY="187.0" prefHeight="25.0" prefWidth="300.0" AnchorPane.rightAnchor="40.0" />
+      <TextField fx:id="selectedBookPublisher" layoutX="260.0" layoutY="225.0" prefHeight="25.0" prefWidth="300.0" AnchorPane.rightAnchor="40.0" />
+      <TextField fx:id="selectedBookSubjects" layoutX="260.0" layoutY="263.0" prefHeight="25.0" prefWidth="300.0" AnchorPane.rightAnchor="40.0" />
+      <TextField fx:id="selectedBookPages" layoutX="261.0" layoutY="303.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="selectedBookReleaseDate" layoutX="261.0" layoutY="341.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="selectedBookStorageSign" layoutX="261.0" layoutY="379.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="40.0" layoutY="385.0" text="Raktári jelzet:" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Ubuntu Regular" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="selectedBookLoanBtn" layoutX="40.0" layoutY="465.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" text="Kölcsönzés felvétele" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" />
+      <Button layoutX="414.0" layoutY="415.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="137.0" text="Előjegyzés" AnchorPane.rightAnchor="40.0" />
+      <Button fx:id="selectedBookEditBtn" layoutX="40.0" layoutY="477.0" mnemonicParsing="false" onAction="#selectedBookEdit" prefHeight="30.0" prefWidth="160.0" text="Szerkesztés" AnchorPane.leftAnchor="40.0" />
+      <Button fx:id="selectedBookSaveBtn" defaultButton="true" layoutX="440.0" layoutY="473.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" text="Módosítások mentése" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+      <Label layoutX="42.0" layoutY="423.0" text="Státusz:">
+         <font>
+            <Font name="Ubuntu Regular" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="261.0" layoutY="423.0" prefHeight="16.0" prefWidth="150.0" text="Kikölcsönözve">
+         <font>
+            <Font name="Ubuntu Regular" size="14.0" />
          </font>
       </Label>
    </children>

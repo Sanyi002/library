@@ -65,7 +65,7 @@ public class LoginController implements Initializable {
 
         if (currentUser != null) {
             HomeController homeController = loader.getController();
-            homeController.setUser(currentUser);
+            homeController.setLoggedUser(currentUser);
             homeController.init();
 
             stage.hide();

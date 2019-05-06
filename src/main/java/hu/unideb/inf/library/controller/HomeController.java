@@ -1,13 +1,9 @@
 package hu.unideb.inf.library.controller;
 
-import com.sun.javafx.scene.control.IntegerField;
 import hu.unideb.inf.library.model.BookModel;
 import hu.unideb.inf.library.model.pojo.Book;
 import hu.unideb.inf.library.model.pojo.User;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -30,43 +26,14 @@ import java.util.ResourceBundle;
 public class HomeController implements Initializable {
 
     /**
-     * Információk és az elérhető admin funkciók megjelenítése az ablakban
-     */
-    public void init() {
-        setLoggedUserName();
-        setLoggedUserUsername();
-        setLoggedUserAdmin();
-        isAdminMenu();
-    }
-
-    /**
-     * Inicializáció.
-     * A BookModel osztály példányosítása.
-     * A táblázat ürítése majd az adatbázisban lévő könyvekkel való feltöltés.
-     * A kiválasztást figyelő event.
-     * @param url
-     * @param resourceBundle
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        bm = new BookModel();
-        homeScreenTable.getColumns().removeAll();
-        showAllBook();
-
-        homeScreenTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if(mouseEvent.getClickCount() == 2) {
-                    triggerSelectedBookScreen();
-                }
-            }
-        });
-    }
-
-    /**
      * BookModel osztály egy példánya.
      */
     private BookModel bm;
+
+    /**
+     * A SelectedBookController egy példánya.
+     */
+    private SelectedBookController sbc;
 
     /**
      * A book osztály elemeinek listája.
@@ -82,20 +49,12 @@ public class HomeController implements Initializable {
      * User osztály egy példánya.
      * Itt kerül eltárolásra a bejelentkezett felhasználó.
      */
-    private User user;
+    private User loggedUser;
 
     /**
      * A táblázatban megjelenő Book osztályok egy kiválaszott példánya.
      */
     private Book selectedBook = null;
-
-    /**
-     * User beállítása.
-     * @param user
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     /**
      * Bejelentkezett felhasználó nevének labelje.
@@ -116,19 +75,19 @@ public class HomeController implements Initializable {
     private Label loggedUserAdmin;
 
     /**
-     * Kölcsönzés buttonja.
+     * Kölcsönzés gombja.
      */
     @FXML
     private Button homeScreenLoanBtn;
 
     /**
-     * Kölcsönzés visszavételének buttonja.
+     * Kölcsönzés visszavételének gombja.
      */
     @FXML
     private Button homeScreenReturnedBtn;
 
     /**
-     * Új könyv felvételének buttonja.
+     * Új könyv felvételének gombja.
      */
     @FXML
     private Button homeScreenAddBookBtn;
@@ -168,6 +127,48 @@ public class HomeController implements Initializable {
      */
     @FXML
     private TextField searchedBookAuthorInput;
+
+    /**
+     * Információk és az elérhető admin funkciók megjelenítése az ablakban
+     */
+    public void init() {
+        setLoggedUserName();
+        setLoggedUserUsername();
+        setLoggedUserAdmin();
+        isAdminMenu();
+    }
+
+    /**
+     * Inicializáció.
+     * A BookModel osztály példányosítása.
+     * A táblázat ürítése majd az adatbázisban lévő könyvekkel való feltöltés.
+     * A kiválasztást figyelő event.
+     * @param url
+     * @param resourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        bm = new BookModel();
+        homeScreenTable.getColumns().removeAll();
+        showAllBook();
+
+        homeScreenTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(mouseEvent.getClickCount() == 2) {
+                    triggerSelectedBookScreen();
+                }
+            }
+        });
+    }
+
+    /**
+     * User beállítása.
+     * @param loggedUser
+     */
+    public void setLoggedUser(User loggedUser) {
+        this.loggedUser = loggedUser;
+    }
 
     /**
      * Adatbázis oszlopainak inicializálása.
@@ -241,10 +242,13 @@ public class HomeController implements Initializable {
 
     }
 
+    /**
+     * Kiválasztott könyv ablakának megnyitása.
+     */
     private void triggerSelectedBookScreen() {
 
         if(homeScreenTable.getSelectionModel().getSelectedItem() != null) {
-            Book b1 = (Book) homeScreenTable.getSelectionModel().getSelectedItem();
+            selectedBook = (Book) homeScreenTable.getSelectionModel().getSelectedItem();
 
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SelectedBookScreen.fxml"));
@@ -255,12 +259,13 @@ public class HomeController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
 
-                System.out.println("Kiválasztott könyv ablaka megnyitva!");
+                sbc = fxmlLoader.getController();
+                sbc.init(selectedBook, loggedUser);
+
                 // TODO: Log infó: Kiválasztott könyv ablaka megnyitva.
             } catch (IOException ex) {
                 // TODO: Log infó: Kiválasztott könyv ablak megnyitása sikertelen.
             }
-
         }
     }
 
@@ -290,7 +295,7 @@ public class HomeController implements Initializable {
      * Ha a felhasználó rendelkezik admin joggal ez a metódus megjeleníti a az elérhető funkciókat.
      */
     public void isAdminMenu() {
-        if(user.getAdmin()) {
+        if(loggedUser.getAdmin()) {
             homeScreenLoanBtn.setStyle("-fx-opacity: 1");
             homeScreenReturnedBtn.setStyle("-fx-opacity: 1");
             homeScreenAddBookBtn.setStyle("-fx-opacity: 1");
@@ -301,21 +306,21 @@ public class HomeController implements Initializable {
      * Bejelentkezett felhasználó nevének kiíratása.
      */
     public void setLoggedUserName() {
-        loggedUserName.setText(user.getName());
+        loggedUserName.setText(loggedUser.getName());
     }
 
     /**
      * Bejelentkezett felhasználó felhasználónevének kiíratása.
      */
     public void setLoggedUserUsername() {
-        loggedUserUsername.setText(user.getUserName());
+        loggedUserUsername.setText(loggedUser.getUserName());
     }
 
     /**
      * Bejelentkezett felhasználó admin jogának kiíratása.
      */
     public void setLoggedUserAdmin() {
-        loggedUserAdmin.setText(user.getAdmin() ? "Igen" : "Nem");
+        loggedUserAdmin.setText(loggedUser.getAdmin() ? "Igen" : "Nem");
     }
 
 }
