@@ -1,17 +1,13 @@
 package hu.unideb.inf.library.controller;
 
 import hu.unideb.inf.library.model.BookModel;
-import hu.unideb.inf.library.model.BookingModel;
-import hu.unideb.inf.library.model.pojo.Book;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.*;
 
 public class AddBookController implements Initializable {
@@ -22,7 +18,7 @@ public class AddBookController implements Initializable {
     }
 
     /**
-     * BookingModel osztály egy példánya.
+     * BookModel osztály egy példánya.
      */
     private BookModel bm;
 

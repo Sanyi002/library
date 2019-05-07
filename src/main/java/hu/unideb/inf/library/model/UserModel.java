@@ -47,12 +47,28 @@ public class UserModel implements AutoCloseable {
     }
 
     /**
+     * A nem admin jogokkal rendelkező felhasználók lekérése.
+     */
+    public List<User> getNotAdmins() {
+        List<User> result = null;
+
+        try {
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.admin = false", User.class);
+            result = query.getResultList();
+        } catch (Exception ex) {
+            // TODO: Log infó
+        }
+
+        return  result;
+    }
+
+
+    /**
      * Adatbázis kapcsolat lezárása.
      */
     @Override
     public void close() {
         this.em.close();
     }
-
 
 }

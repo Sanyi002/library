@@ -1,10 +1,12 @@
 package hu.unideb.inf.library.model;
 
 import hu.unideb.inf.library.model.pojo.Book;
+import hu.unideb.inf.library.model.pojo.Loan;
 import javafx.scene.control.TextField;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -139,6 +141,30 @@ public class BookModel implements AutoCloseable {
         }
         return 1;
     }
+
+    // TODO: Loan POJO után
+    /*
+    public List<Book> getLoanableBooks() {
+        List<Book> result = null;
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Book> query = cb.createQuery(Book.class);
+        Root<Book> bookRoot = query.from(Book.class);
+        query.select(bookRoot);
+
+        Subquery<Loan> subquery = query.subquery(Loan.class);
+        Root<Loan> subRoot = subquery.from(Loan.class);
+        subquery.select(subRoot);
+
+        Predicate p = cb.equal(subRoot.get("bookISBN"), bookRoot);
+        subquery.where(p);
+        query.where(cb.not(cb.exists(subquery)));
+
+        TypedQuery<Book> typedQuery = em.createQuery(query);
+
+        return result = typedQuery.getResultList();
+    }
+    */
 
     /**
      * Adatbázis kapcsolat lezárása.

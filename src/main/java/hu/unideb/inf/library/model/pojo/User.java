@@ -78,6 +78,14 @@ public class User {
     }
 
     /**
+     * Visszaadja a user id-ját.
+     * @return user id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * Visszaadja a user felhasználónevét.
      * @return user felhasználóneve
      */

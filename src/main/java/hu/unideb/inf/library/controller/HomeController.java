@@ -171,18 +171,15 @@ public class HomeController implements Initializable {
     }
 
     /**
-     * Adatbázis oszlopainak inicializálása.
+     * Táblázat oszlopainak inicializálása.
      */
     private void initTableColumns() {
         homeScreenTable.getItems().clear();
         homeScreenTable.getColumns().clear();
 
         titleColumn = new TableColumn("Cím");
-        titleColumn.setMinWidth(300);
         authorColumn = new TableColumn("Szerző");
-        authorColumn.setMinWidth(300);
         releaseDateColumn = new TableColumn("Megjelenés éve");
-        releaseDateColumn.setMinWidth(300);
 
         titleColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         titleColumn.setCellValueFactory(new PropertyValueFactory<Book, String>("title"));
@@ -192,6 +189,7 @@ public class HomeController implements Initializable {
         releaseDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getReleaseDate())));
 
         homeScreenTable.getColumns().addAll(titleColumn,authorColumn,releaseDateColumn);
+        homeScreenTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
     /**
@@ -299,6 +297,28 @@ public class HomeController implements Initializable {
             homeScreenLoanBtn.setStyle("-fx-opacity: 1");
             homeScreenReturnedBtn.setStyle("-fx-opacity: 1");
             homeScreenAddBookBtn.setStyle("-fx-opacity: 1");
+        }
+    }
+
+    /**
+     * Könyv kölcsönzése ablak
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    private void triggerLoanScreen(Event event) throws IOException{
+        try {
+            // TODO: Log info: Új könyv hozzáadása ablak megnyitva.
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LoanBookScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setTitle("Library - Loan book");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            // TODO: Log info: Új könyv hozzáadása ablak megnyitása sikertelen.
         }
     }
 
