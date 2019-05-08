@@ -142,8 +142,10 @@ public class BookModel implements AutoCloseable {
         return 1;
     }
 
-    // TODO: Loan POJO után
-    /*
+    /**
+     * Kölcsönözhető könyvek lekérése.
+     * @return kölcsönözhető könyvek listája
+     */
     public List<Book> getLoanableBooks() {
         List<Book> result = null;
 
@@ -164,14 +166,13 @@ public class BookModel implements AutoCloseable {
 
         return result = typedQuery.getResultList();
     }
-    */
 
     /**
      * Adatbázis kapcsolat lezárása.
      */
     @Override
     public void close() {
-        em.close();
+        this.em.close();
     }
 
 }

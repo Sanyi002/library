@@ -1,21 +1,17 @@
 package hu.unideb.inf.library.model.pojo;
 
 import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import javax.persistence.*;
 
-// TODO:
 
-//@Entity
+@Entity
 public class Loan {
 
+    @Id
     @Column (name = "bookISBN")
-    private int bookISBN;
+    private String bookISBN;
 
     @Column (name = "userID")
     private int userID;
@@ -30,30 +26,10 @@ public class Loan {
 
     public Loan() {}
 
-    public Loan(int bookID, int userID, LocalDateTime loanEnd) {
+    public Loan(String bookID, int userID) {
         this.bookISBN = bookID;
         this.userID = userID;
         this.loanStart = new LocalDate();
         this.loanEnd = this.loanStart.plusDays(30);
-    }
-
-    public int getBookISBN() {
-        return bookISBN;
-    }
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public LocalDate getLoanStart() {
-        return loanStart;
-    }
-
-    public LocalDate getLoanEnd() {
-        return loanEnd;
-    }
-
-    public void setLoanEnd(LocalDate loanEnd) {
-        this.loanEnd = loanEnd;
     }
 }

@@ -92,6 +92,9 @@ public class HomeController implements Initializable {
     @FXML
     private Button homeScreenAddBookBtn;
 
+    /**
+     * Kölcsönzés felvételének gombja.
+     */
     @FXML
     private Button homeLoansBtn;
 
@@ -139,7 +142,7 @@ public class HomeController implements Initializable {
         setLoggedUserUsername();
         setLoggedUserAdmin();
         isAdminMenu();
-        
+
         if(loggedUser.getAdmin()) {
             homeLoansBtn.setDisable(true);
         }

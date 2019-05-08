@@ -22,10 +22,6 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    public void initialize(URL location, ResourceBundle resources) {
-        um = new UserModel();
-    }
-
     /**
      * UserModel osztály egy példánya.
      */
@@ -48,6 +44,10 @@ public class LoginController implements Initializable {
      */
     @FXML
     private Label loginErrorMsg;
+
+    public void initialize(URL location, ResourceBundle resources) {
+        um = new UserModel();
+    }
 
     /**
      * Bejelentkezés elsütése kattintásra

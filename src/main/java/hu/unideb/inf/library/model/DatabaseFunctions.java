@@ -4,7 +4,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class DatabaseFunctions implements AutoCloseable{
+public class DatabaseFunctions implements AutoCloseable {
+
+    /**
+     * A DatabaseFunctions osztály egy példánya.
+     */
+    private static DatabaseFunctions dbf = new DatabaseFunctions();
 
     /**
      * EntityManagerFactory osztály egy példánya.
@@ -17,8 +22,16 @@ public class DatabaseFunctions implements AutoCloseable{
                 entityManagerFactory = Persistence.createEntityManagerFactory("jpa-persistence-unit-1");
             }
         } catch (Exception ex) {
-            System.out.println("Fatal: Unable to create entity manager factory");
+            System.out.println("Fatal: Unable to create entity manager factory" + ex);
         }
+    }
+
+    /**
+     * Visszaad az adatbáziskapcsolathoz használt dbf objektumot.
+     * @return EntityManagerFactory objektum
+     */
+    public static DatabaseFunctions getInstance() {
+        return dbf;
     }
 
     /**

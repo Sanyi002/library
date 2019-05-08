@@ -1,7 +1,5 @@
 package hu.unideb.inf.library.model.pojo;
 
-import javafx.scene.control.TextField;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

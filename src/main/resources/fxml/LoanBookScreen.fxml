@@ -17,9 +17,9 @@
       </Label>
       <TableView fx:id="loanBookTable" layoutX="40.0" layoutY="110.0" prefHeight="238.0" prefWidth="761.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
       <TableView fx:id="loanBookUserTable" layoutX="40.0" layoutY="410.0" prefHeight="182.0" prefWidth="380.0" />
-      <TextField layoutX="441.0" layoutY="383.0" prefHeight="27.0" prefWidth="360.0" AnchorPane.rightAnchor="40.0" />
-      <TextField layoutX="441.0" layoutY="444.0" prefHeight="27.0" prefWidth="360.0" />
-      <Button layoutX="641.0" layoutY="619.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="160.0" text="Kölcsönzés felvétele" AnchorPane.rightAnchor="40.0" />
+      <TextField fx:id="bookIsbnField" editable="false" layoutX="441.0" layoutY="383.0" prefHeight="27.0" prefWidth="360.0" AnchorPane.rightAnchor="40.0" />
+      <TextField fx:id="bookTitleField" editable="false" layoutX="441.0" layoutY="444.0" prefHeight="27.0" prefWidth="360.0" />
+      <Button layoutX="641.0" layoutY="619.0" mnemonicParsing="false" onAction="#triggerLoanBook" prefHeight="35.0" prefWidth="160.0" text="Kölcsönzés felvétele" AnchorPane.rightAnchor="40.0" />
       <Label layoutX="441.0" layoutY="361.0" text="Könyv ISBN száma">
          <font>
             <Font name="Ubuntu Bold" size="13.0" />
@@ -35,8 +35,8 @@
             <Font name="Ubuntu Bold" size="13.0" />
          </font>
       </Label>
-      <TextField layoutX="441.0" layoutY="505.0" prefHeight="27.0" prefWidth="360.0" />
-      <TextField layoutX="441.0" layoutY="565.0" prefHeight="27.0" prefWidth="360.0" />
+      <TextField fx:id="userIdField" editable="false" layoutX="441.0" layoutY="505.0" prefHeight="27.0" prefWidth="360.0" />
+      <TextField fx:id="userNameField" editable="false" layoutX="441.0" layoutY="565.0" prefHeight="27.0" prefWidth="360.0" />
       <Label layoutX="442.0" layoutY="544.0" text="Felhasználó neve">
          <font>
             <Font name="Ubuntu Bold" size="13.0" />
