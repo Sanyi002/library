@@ -12,19 +12,16 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-// TODO: Kölcsönzés felvétele után a táblázat frissítése.
 
 public class LoanBookController implements Initializable {
 
@@ -129,6 +126,9 @@ public class LoanBookController implements Initializable {
     @FXML
     private TableColumn<User, String> userNameColumn = null;
 
+    @FXML
+    private Button loanBookBtn;
+
     /**
      * Inicializáció.
      * @param url
@@ -204,25 +204,31 @@ public class LoanBookController implements Initializable {
 
     /**
      * A kölcsönzés felvétele az adatbázisba.
-     * TextField-ek ürítése.
+     * Ablak bezárása.
      * @param event
      */
     @FXML
     private void triggerLoanBook(Event event) {
-        lm.addLoan(selectedBook.getIsbn(), selectedUser.getId());
+        if(selectedBook != null && selectedUser != null) {
+            lm.addLoan(selectedBook.getIsbn(), selectedUser.getId());
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Library - Info");
-        alert.setHeaderText(null);
-        alert.setContentText("A kölcsönzés sikeresen felvéve!");
-        alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Library - Info");
+            alert.setHeaderText(null);
+            alert.setContentText("A kölcsönzés sikeresen felvéve!");
+            alert.showAndWait();
 
-        selectedUser = null;
-        selectedBook = null;
-        bookIsbnField.clear();
-        bookTitleField.clear();
-        userIdField.clear();
-        userNameField.clear();
+            final Node source = (Node) event.getSource();
+            final Stage stage = (Stage) source.getScene().getWindow();
+            stage.close();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Library - Info");
+            alert.setHeaderText(null);
+            alert.setContentText("A kölcsönzés felvétele sikertelen! Hiányzó adatok!");
+            alert.showAndWait();
+        }
+
 
         // TODO: Log infó
     }

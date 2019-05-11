@@ -1,11 +1,13 @@
 package hu.unideb.inf.library.model.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Map;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "BookModel.getLoanableBooks",
+                query = "SELECT b FROM Book b WHERE b.isbn NOT IN (SELECT l.bookISBN FROM Loan l)")
+})
 public class Book {
 
     /**

@@ -3,9 +3,10 @@ package hu.unideb.inf.library.model;
 import hu.unideb.inf.library.model.pojo.Book;
 import hu.unideb.inf.library.model.pojo.Loan;
 import javafx.scene.control.TextField;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,8 @@ public class BookModel implements AutoCloseable {
      * EntityManager osztály egy példánya.
      */
     private EntityManager em;
+
+    Session session;
 
     /**
      * EntityManager osztály példányosítása, az adatbázis kapcsolat létrehozása.
@@ -149,22 +152,18 @@ public class BookModel implements AutoCloseable {
     public List<Book> getLoanableBooks() {
         List<Book> result = null;
 
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Book> query = cb.createQuery(Book.class);
-        Root<Book> bookRoot = query.from(Book.class);
-        query.select(bookRoot);
+        try {
+            TypedQuery<Book> query = em.createNamedQuery("BookModel.getLoanableBooks",Book.class);
+            result = query.getResultList();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
 
-        Subquery<Loan> subquery = query.subquery(Loan.class);
-        Root<Loan> subRoot = subquery.from(Loan.class);
-        subquery.select(subRoot);
+        System.out.println("BookModel-ből: ");
+        result.forEach(book -> System.out.println(book.getIsbn()));
 
-        Predicate p = cb.equal(subRoot.get("bookISBN"), bookRoot);
-        subquery.where(p);
-        query.where(cb.not(cb.exists(subquery)));
+        return result;
 
-        TypedQuery<Book> typedQuery = em.createQuery(query);
-
-        return result = typedQuery.getResultList();
     }
 
     /**

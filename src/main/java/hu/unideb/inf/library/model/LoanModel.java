@@ -2,10 +2,13 @@ package hu.unideb.inf.library.model;
 
 import hu.unideb.inf.library.model.pojo.Loan;
 
+import javax.persistence.CacheRetrieveMode;
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import java.time.LocalDate;
 
 public class LoanModel implements AutoCloseable {
+
     /**
      * EntityManager osztály egy példánya.
      */
@@ -18,6 +21,11 @@ public class LoanModel implements AutoCloseable {
         this.em = new DatabaseFunctions().getEntityManager();
     }
 
+    /**
+     * Új kölcsönzés hozzáadása az adatbázishoz.
+     * @param bookISBN a könyv ISBN száma
+     * @param userID a felhasználó ID-ja
+     */
     public void addLoan(String bookISBN, int userID) {
         Loan loan = new Loan(bookISBN, userID);
 
