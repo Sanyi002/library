@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="587.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.library.controller.SelectedBookController">
+<AnchorPane prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.library.controller.SelectedBookController">
    <children>
       <Label alignment="TOP_LEFT" layoutX="40.0" layoutY="32.0" prefHeight="66.0" prefWidth="377.0" text="Rejtő Jenő: Karátos autó (1995)" wrapText="true" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="183.0" AnchorPane.topAnchor="30.0">
          <font>
@@ -63,16 +63,14 @@
             <Font name="Ubuntu Regular" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="selectedBookLoanBtn" layoutX="40.0" layoutY="465.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="160.0" text="Kölcsönzés felvétele" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" />
-      <Button layoutX="414.0" layoutY="415.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="137.0" text="Előjegyzés" AnchorPane.rightAnchor="40.0" />
-      <Button fx:id="selectedBookEditBtn" layoutX="40.0" layoutY="477.0" mnemonicParsing="false" onAction="#selectedBookEdit" prefHeight="30.0" prefWidth="160.0" text="Szerkesztés" AnchorPane.leftAnchor="40.0" />
-      <Button fx:id="selectedBookSaveBtn" defaultButton="true" layoutX="440.0" layoutY="473.0" mnemonicParsing="false" onAction="#selectedBookSave" prefHeight="30.0" prefWidth="160.0" text="Módosítások mentése" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+      <Button fx:id="selectedBookEditBtn" layoutX="40.0" layoutY="475.0" mnemonicParsing="false" onAction="#selectedBookEdit" prefHeight="30.0" prefWidth="160.0" text="Szerkesztés" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" />
+      <Button fx:id="selectedBookSaveBtn" defaultButton="true" layoutX="400.0" layoutY="514.0" mnemonicParsing="false" onAction="#selectedBookSave" prefHeight="30.0" prefWidth="160.0" text="Módosítások mentése" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="40.0" />
       <Label layoutX="42.0" layoutY="423.0" text="Státusz:">
          <font>
             <Font name="Ubuntu Regular" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="261.0" layoutY="423.0" prefHeight="16.0" prefWidth="150.0" text="Kikölcsönözve">
+      <Label fx:id="selectedBookStatus" layoutX="261.0" layoutY="423.0" prefHeight="16.0" prefWidth="150.0">
          <font>
             <Font name="Ubuntu Regular" size="14.0" />
          </font>

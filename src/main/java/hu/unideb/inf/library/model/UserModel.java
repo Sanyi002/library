@@ -59,7 +59,7 @@ public class UserModel implements AutoCloseable {
             // TODO: Log infó
         }
 
-        return  result;
+        return result;
     }
 
 

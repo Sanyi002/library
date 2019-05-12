@@ -143,6 +143,8 @@ public class BookModel implements AutoCloseable {
             }
         }
         return 1;
+
+        // TODO: Log infó
     }
 
     /**
@@ -158,12 +160,9 @@ public class BookModel implements AutoCloseable {
         } catch (Exception ex) {
             System.out.println(ex);
         }
-
-        System.out.println("BookModel-ből: ");
-        result.forEach(book -> System.out.println(book.getIsbn()));
-
         return result;
 
+        // TODO: Log infó
     }
 
     /**

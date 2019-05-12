@@ -5,6 +5,7 @@ import hu.unideb.inf.library.model.pojo.Loan;
 import javax.persistence.CacheRetrieveMode;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
+import javax.persistence.Query;
 import java.time.LocalDate;
 
 public class LoanModel implements AutoCloseable {
@@ -36,6 +37,32 @@ public class LoanModel implements AutoCloseable {
         } catch (Exception ex) {
             // TODO: Log info
         }
+    }
+
+    /**
+     * Kölcsönözhető-e egy könyv.
+     * @param isbn a vizsgálni kívánt könyv ISBN száma
+     * @return logikai érték
+     */
+    public boolean isLoanable(String isbn) {
+        boolean result;
+        Loan loan = null;
+
+        try {
+            Query query = em.createQuery("" +
+                    "SELECT l FROM Loan l WHERE l.bookISBN = '" + isbn + "'", Loan.class);
+            loan = (Loan) query.getSingleResult();
+        } catch (Exception ex) {
+
+        }
+
+        if(loan == null) {
+            result = true;
+        } else {
+            result = false;
+        }
+
+        return result;
     }
 
     /**

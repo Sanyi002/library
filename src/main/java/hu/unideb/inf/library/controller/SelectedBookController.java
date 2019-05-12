@@ -1,6 +1,7 @@
 package hu.unideb.inf.library.controller;
 
 import hu.unideb.inf.library.model.BookModel;
+import hu.unideb.inf.library.model.LoanModel;
 import hu.unideb.inf.library.model.pojo.Book;
 import hu.unideb.inf.library.model.pojo.User;
 import javafx.event.Event;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -42,6 +44,8 @@ public class SelectedBookController implements Initializable {
      * A BookModel egy példánya.
      */
     private BookModel bm;
+
+    private LoanModel lm;
 
     /**
      * A kiválasztott könyv ISBN száma.
@@ -92,6 +96,12 @@ public class SelectedBookController implements Initializable {
     private TextField selectedBookStorageSign;
 
     /**
+     * A kiválasztott könyv státusza.
+     */
+    @FXML
+    private Label selectedBookStatus;
+
+    /**
      * A szerkesztés gombja.
      */
     @FXML
@@ -102,12 +112,6 @@ public class SelectedBookController implements Initializable {
      */
     @FXML
     private Button selectedBookSaveBtn;
-
-    /**
-     * A kölcsönzés felvételének gombja.
-     */
-    @FXML
-    private Button selectedBookLoanBtn;
 
     /**
      * A kiválaszott Book objektum és User objektum átadása a kontrollernek.
@@ -133,6 +137,13 @@ public class SelectedBookController implements Initializable {
         inputFields.forEach((k,v) -> v.setEditable(false));
 
         initAdminButtons();
+
+        if(lm.isLoanable(selectedBook.getIsbn())) {
+            selectedBookStatus.setText("Hozzáférhető");
+        } else {
+            selectedBookStatus.setText("Kölcsönözve");
+        }
+
     }
 
     /**
@@ -145,6 +156,7 @@ public class SelectedBookController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         bm = new BookModel();
+        lm = new LoanModel();
     }
 
     /**
@@ -167,12 +179,10 @@ public class SelectedBookController implements Initializable {
     private void initAdminButtons() {
         if(loggedUser.getAdmin()) {
             selectedBookEditBtn.setVisible(true);
-            selectedBookLoanBtn.setVisible(true);
             selectedBookSaveBtn.setVisible(false);
         } else {
             selectedBookEditBtn.setVisible(false);
             selectedBookSaveBtn.setVisible(false);
-            selectedBookLoanBtn.setVisible(false);
         }
     }
 
