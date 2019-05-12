@@ -2,6 +2,7 @@ package hu.unideb.inf.library.model;
 
 import hu.unideb.inf.library.model.pojo.Book;
 import hu.unideb.inf.library.model.pojo.Loan;
+import hu.unideb.inf.library.model.pojo.User;
 import javafx.scene.control.TextField;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -158,7 +159,7 @@ public class BookModel implements AutoCloseable {
             TypedQuery<Book> query = em.createNamedQuery("BookModel.getLoanableBooks",Book.class);
             result = query.getResultList();
         } catch (Exception ex) {
-            System.out.println(ex);
+
         }
         return result;
 

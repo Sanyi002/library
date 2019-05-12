@@ -36,6 +36,11 @@ public class HomeController implements Initializable {
     private SelectedBookController sbc;
 
     /**
+     * A LoansController egy példánya.
+     */
+    private LoansController lc;
+
+    /**
      * A book osztály elemeinek listája.
      */
     private ObservableList<Book> allBook = FXCollections.observableArrayList();
@@ -338,6 +343,30 @@ public class HomeController implements Initializable {
             stage.setTitle("Library - Return book");
             stage.setScene(scene);
             stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            // TODO: Log info: Új könyv hozzáadása ablak megnyitása sikertelen.
+        }
+    }
+
+    /**
+     * Kölcsönzések ablakának megnyitása.
+     * @param event
+     */
+    @FXML
+    private void triggerLoansScreen(Event event) {
+        try {
+            // TODO: Log info: Új könyv hozzáadása ablak megnyitva.
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LoansScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setTitle("Library - Loans");
+            stage.setScene(scene);
+            stage.show();
+
+            lc = fxmlLoader.getController();
+            lc.init(loggedUser);
         } catch (IOException ex) {
             ex.printStackTrace();
             // TODO: Log info: Új könyv hozzáadása ablak megnyitása sikertelen.

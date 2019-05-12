@@ -1,6 +1,7 @@
 package hu.unideb.inf.library.model;
 
 import hu.unideb.inf.library.model.pojo.Loan;
+import hu.unideb.inf.library.model.pojo.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -67,7 +68,6 @@ public class LoanModel implements AutoCloseable {
      * @return lista a kölcsönzésekről
      */
     public List<Loan> allLoan() {
-
         List<Loan> result = null;
 
         try {
@@ -93,6 +93,20 @@ public class LoanModel implements AutoCloseable {
         } catch (Exception ex) {
             //TODO: Log infó
         }
+    }
+
+    public List<Loan> userLoans(User user) {
+        List<Loan> result = null;
+
+        try {
+            TypedQuery<Loan> query = em.createQuery(
+                    "SELECT l FROM Loan l WHERE l.userID = " + user.getId(), Loan.class);
+            result = query.getResultList();
+        } catch (Exception ex) {
+            // TODO: Log infó
+        }
+
+        return result;
     }
 
     /**

@@ -78,6 +78,9 @@ public class ReturnBookController implements Initializable {
      */
     private LoanModel lm;
 
+    /**
+     * Kiválasztott kölcsönzés objektuma.
+     */
     private Loan selectedLoan = null;
 
     /**
