@@ -49,4 +49,20 @@ public class Loan {
         this.loanStart = new LocalDate();
         this.loanEnd = this.loanStart.plusDays(30);
     }
+
+    public String getBookISBN() {
+        return bookISBN;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public LocalDate getLoanStart() {
+        return loanStart;
+    }
+
+    public LocalDate getLoanEnd() {
+        return loanEnd;
+    }
 }

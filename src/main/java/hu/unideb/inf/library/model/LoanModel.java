@@ -2,11 +2,8 @@ package hu.unideb.inf.library.model;
 
 import hu.unideb.inf.library.model.pojo.Loan;
 
-import javax.persistence.CacheRetrieveMode;
-import javax.persistence.EntityManager;
-import javax.persistence.FlushModeType;
-import javax.persistence.Query;
-import java.time.LocalDate;
+import javax.persistence.*;
+import java.util.List;
 
 public class LoanModel implements AutoCloseable {
 
@@ -53,7 +50,7 @@ public class LoanModel implements AutoCloseable {
                     "SELECT l FROM Loan l WHERE l.bookISBN = '" + isbn + "'", Loan.class);
             loan = (Loan) query.getSingleResult();
         } catch (Exception ex) {
-
+            // TODO
         }
 
         if(loan == null) {
@@ -63,6 +60,39 @@ public class LoanModel implements AutoCloseable {
         }
 
         return result;
+    }
+
+    /**
+     * Összes kölcsönzés adatainak lekérése.
+     * @return lista a kölcsönzésekről
+     */
+    public List<Loan> allLoan() {
+
+        List<Loan> result = null;
+
+        try {
+            TypedQuery<Loan> query = em.createQuery(
+                    "SELECT l FROM Loan l", Loan.class);
+            result = query.getResultList();
+        } catch (Exception ex) {
+            // TODO: Log infó
+        }
+
+        return result;
+    }
+
+    /**
+     * Kölcsönzés eltávolítása az adatbázisból.
+     * @param loan kölcsönzés objektuma
+     */
+    public void removeLoan(Loan loan) {
+        try {
+            em.getTransaction().begin();
+            em.remove(loan);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            //TODO: Log infó
+        }
     }
 
     /**

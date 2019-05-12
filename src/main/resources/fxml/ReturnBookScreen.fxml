@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="579.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.unideb.inf.library.controller.ReturnBookController">
+   <children>
+      <Label alignment="TOP_LEFT" layoutX="50.0" layoutY="48.0" prefHeight="24.0" prefWidth="580.0" text="Visszavétel felvétele" wrapText="true" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="40.0">
+         <font>
+            <Font name="Ubuntu Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="50.0" layoutY="86.0" prefHeight="24.0" prefWidth="580.0" text="Kikölcsönzött könyvek listája" wrapText="true" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+         <font>
+            <Font name="Ubuntu Bold" size="16.0" />
+         </font>
+      </Label>
+      <TableView fx:id="loanBookTable" layoutX="50.0" layoutY="120.0" prefHeight="238.0" prefWidth="761.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" />
+      <TextField fx:id="selectedUserIdField" editable="false" layoutX="440.0" layoutY="427.0" prefHeight="27.0" prefWidth="600.0" AnchorPane.rightAnchor="40.0" />
+      <Label layoutX="40.0" layoutY="433.0" text="Felhasználó ID" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Ubuntu Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="383.0" text="Könyv ISBN száma" AnchorPane.leftAnchor="40.0">
+         <font>
+            <Font name="Ubuntu Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="selectedBookIsbnField" editable="false" layoutX="440.0" layoutY="377.0" prefHeight="27.0" prefWidth="600.0" AnchorPane.rightAnchor="40.0" />
+      <Button defaultButton="true" layoutX="549.0" layoutY="589.0" mnemonicParsing="false" onAction="#triggerRemoveLoan" prefHeight="40.0" prefWidth="270.0" text="Kölcsönzés visszavételének igazolása" AnchorPane.bottomAnchor="48.0" AnchorPane.rightAnchor="40.0" />
+   </children>
+</AnchorPane>

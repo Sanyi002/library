@@ -213,15 +213,6 @@ public class HomeController implements Initializable {
     }
 
     /**
-     * A táblázatban megjelenített könyvek frissítése.
-     * @param event
-     */
-    @FXML
-    private void updateHomeTable(Event event) {
-        // TODO
-    }
-
-    /**
      * Keresés erdményének betöltése a táblázatba.
      */
     @FXML
@@ -247,7 +238,6 @@ public class HomeController implements Initializable {
 
             showAllBook();
         }
-
     }
 
     /**
@@ -324,6 +314,28 @@ public class HomeController implements Initializable {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setTitle("Library - Loan book");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            // TODO: Log info: Új könyv hozzáadása ablak megnyitása sikertelen.
+        }
+    }
+
+    /**
+     * Könyv visszavétele ablak
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    private void triggerReturnScreen(Event event) throws IOException {
+        try {
+            // TODO: Log info: Új könyv hozzáadása ablak megnyitva.
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ReturnBookScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setTitle("Library - Return book");
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {

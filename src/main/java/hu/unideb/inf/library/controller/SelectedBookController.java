@@ -236,16 +236,20 @@ public class SelectedBookController implements Initializable {
                 alert.setContentText("Nem menthető a módosítás! Egyik mező értéke sem változott!");
                 alert.showAndWait();
             }
-
         } else if(bm.bookValidation(inputFields) == 0) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Library - Info");
             alert.setHeaderText(null);
             alert.setContentText("Nem menthető a módosítás! Hibás mező érték!");
             alert.showAndWait();
+        } else if(bm.bookValidation(inputFields) == -1) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Library - Info");
+            alert.setHeaderText(null);
+            alert.setContentText("Nem menthető a módosítás! Hiányos mező érték!");
+            alert.showAndWait();
         }
 
         // TODO: Log infók
-        System.out.println("Kattintás megtörtént a mentés gombra.");
     }
 }
