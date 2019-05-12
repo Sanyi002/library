@@ -98,6 +98,12 @@ public class HomeController implements Initializable {
     private Button homeScreenAddBookBtn;
 
     /**
+     * Kijelentkezés gombja.
+     */
+    @FXML
+    private Button logoutBtn;
+
+    /**
      * Kölcsönzés felvételének gombja.
      */
     @FXML
@@ -370,6 +376,33 @@ public class HomeController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
             // TODO: Log info: Új könyv hozzáadása ablak megnyitása sikertelen.
+        }
+    }
+
+    /**
+     * Kijelentkezés elsütése.
+     * @param event
+     */
+    @FXML
+    private void triggerLogout(Event event) {
+        try {
+            // TODO: Log info
+            Stage stage1 = (Stage) logoutBtn.getScene().getWindow();
+            stage1.close();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LoginScreen.fxml"));
+            Parent root = fxmlLoader.load();
+
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Library");
+            stage.setScene(scene);
+
+            stage.show();
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            // TODO: Log info
         }
     }
 
