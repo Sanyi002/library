@@ -6,24 +6,31 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
 
     /**
      * Program belépési pontja
      * Kezdésnek a bejelentkezési ablakot nyitja meg
-     * @param stage
-     * @throws Exception
+     * @param stage kezdőképernyő stage objektuma
+     * @throws Exception exception kezelése nem talált fxml esetén
      */
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LoginScreen.fxml"));
-        Parent root = fxmlLoader.load();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LoginScreen.fxml"));
+            Parent root = fxmlLoader.load();
 
-        Scene scene = new Scene(root);
-        stage.setTitle("Library");
-        stage.setScene(scene);
+            Scene scene = new Scene(root);
+            stage.setTitle("Library");
+            stage.setScene(scene);
 
-        stage.show();
+            stage.show();
+        } catch (IOException ex) {
+            //TODO: Log infó
+        }
+
     }
 
     public static void main(String[] args) {

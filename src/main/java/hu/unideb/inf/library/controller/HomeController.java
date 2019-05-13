@@ -164,8 +164,8 @@ public class HomeController implements Initializable {
      * A BookModel osztály példányosítása.
      * A táblázat ürítése majd az adatbázisban lévő könyvekkel való feltöltés.
      * A kiválasztást figyelő event.
-     * @param url
-     * @param resourceBundle
+     * @param url URL osztály egy példánya
+     * @param resourceBundle ResourceBundle osztály egy példánya
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -185,7 +185,7 @@ public class HomeController implements Initializable {
 
     /**
      * User beállítása.
-     * @param loggedUser
+     * @param loggedUser bejelentkezett felhasználó objektuma
      */
     public void setLoggedUser(User loggedUser) {
         this.loggedUser = loggedUser;

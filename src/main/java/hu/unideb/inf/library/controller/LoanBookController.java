@@ -131,8 +131,8 @@ public class LoanBookController implements Initializable {
 
     /**
      * Inicializáció.
-     * @param url
-     * @param resourceBundle
+     * @param url URL osztály egy példánya
+     * @param resourceBundle ResourceBundle osztály egy példánya
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

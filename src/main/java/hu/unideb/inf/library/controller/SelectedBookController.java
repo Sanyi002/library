@@ -118,7 +118,8 @@ public class SelectedBookController implements Initializable {
      * Az adatok betöltése.
      * TextField-ek belerakása a map-ba, majd alapértelmezetten letiltjuk rajtuk a szerkesztést.
      * Az admin funkció gombok betöltése.
-     * @param book a kiválasztott Book osztály egy példánya
+     * @param book a kiválasztott könyv objektuma
+     * @param user a bejelentkezett felhasználó objektuma
      */
     public void init(Book book, User user) {
         selectedBook = book;
@@ -150,8 +151,8 @@ public class SelectedBookController implements Initializable {
      * Inicializáció.
      * A TextField-eket betöltjük a map-ba.
      * A BookModel osztály példányosítása.
-     * @param url
-     * @param resourceBundle
+     * @param url URL osztály egy példánya
+     * @param resourceBundle ResourceBundle osztály egy példánya
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

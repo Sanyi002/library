@@ -24,9 +24,10 @@ public class UserModel implements AutoCloseable {
     }
 
     /**
-     *
-     * @param userName
-     * @return
+     * Felhasználó lekérése felhasználónév és jelszó alapján.
+     * @param userName felhasználóinév
+     * @param password felhasználó jelszava
+     * @return bejelentkezett felasználó obejtuma
      */
     public User getUser(String userName, String password) {
         User user = null;
@@ -47,7 +48,8 @@ public class UserModel implements AutoCloseable {
     }
 
     /**
-     * A nem admin jogokkal rendelkező felhasználók lekérése.
+     * Admin jogokkal nem rendelkező felhasználók lekérése.
+     * @return admin jogokkal nem rendelkezző felhasználók listája
      */
     public List<User> getNotAdmins() {
         List<User> result = null;

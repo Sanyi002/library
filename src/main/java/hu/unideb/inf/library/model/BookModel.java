@@ -49,14 +49,14 @@ public class BookModel implements AutoCloseable {
     /**
      * Új könyv hozzáadása az adatbázishoz.
      * // TODO
-     * @param isbn
-     * @param title
-     * @param author
-     * @param publisher
-     * @param releaseDate
-     * @param pages
-     * @param subjects
-     * @param storageSign
+     * @param isbn könyv ISBN száma
+     * @param title könyv címe
+     * @param author könyv szerzője
+     * @param publisher könyv kiadója
+     * @param releaseDate könyv megjelenésének éve
+     * @param pages könyv terjedelme
+     * @param subjects könyv tárgyszavai
+     * @param storageSign könyv raktári jelzete
      */
     public void pushNewBook(String isbn, String title, String author, String publisher, int releaseDate, int pages, String subjects, String storageSign) {
         Book nb = new Book(isbn, title, author, publisher, releaseDate, pages, subjects, storageSign);
@@ -125,7 +125,7 @@ public class BookModel implements AutoCloseable {
 
     /**
      * Könyv hozzáadása/frissítése esetén az input értékékek validálása.
-     * @param inputs
+     * @param inputs TextField-ek értékei
      * @return int érték: 1 = sikeres, 0 = hibás mező érték, -1 = üres mezők
      */
     public int bookValidation(Map<String, TextField> inputs) {
