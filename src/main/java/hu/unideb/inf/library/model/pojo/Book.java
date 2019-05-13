@@ -3,6 +3,9 @@ package hu.unideb.inf.library.model.pojo;
 import javax.persistence.*;
 import java.util.Map;
 
+/**
+ * Egy Book-t reprezentáló osztály.
+ */
 @Entity
 @NamedQueries({
         @NamedQuery(name = "BookModel.getLoanableBooks",

@@ -9,7 +9,6 @@ import javax.persistence.*;
  * Egy User-t reprezentáló osztály
  *
  */
-
 @Entity
 public class User {
     /**

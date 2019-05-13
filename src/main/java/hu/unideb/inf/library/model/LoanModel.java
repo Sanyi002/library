@@ -95,6 +95,11 @@ public class LoanModel implements AutoCloseable {
         }
     }
 
+    /**
+     * Kölcsönzések listája, userID szerint szűrve.
+     * @param user lekérdezni kívánt felhasználó objektuma
+     * @return szűrt kölcsönzések listája
+     */
     public List<Loan> userLoans(User user) {
         List<Loan> result = null;
 

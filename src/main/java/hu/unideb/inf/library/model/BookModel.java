@@ -1,17 +1,12 @@
 package hu.unideb.inf.library.model;
 
 import hu.unideb.inf.library.model.pojo.Book;
-import hu.unideb.inf.library.model.pojo.Loan;
-import hu.unideb.inf.library.model.pojo.User;
 import javafx.scene.control.TextField;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 import javax.persistence.*;
-import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class BookModel implements AutoCloseable {
 

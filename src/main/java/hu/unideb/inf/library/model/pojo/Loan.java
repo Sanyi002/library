@@ -5,7 +5,9 @@ import org.joda.time.LocalDate;
 
 import javax.persistence.*;
 
-
+/**
+ * Egy Loan-t reprezentáló osztály
+ */
 @Entity
 public class Loan {
 
@@ -50,18 +52,34 @@ public class Loan {
         this.loanEnd = this.loanStart.plusDays(30);
     }
 
+    /**
+     * Visszaadja a kölcsönzött könyv ISBN számát.
+     * @return kölcsönzött könyv ISBN száma
+     */
     public String getBookISBN() {
         return bookISBN;
     }
 
+    /**
+     * Visszaadja a kölcsönző felhasználó ID-ját.
+     * @return felhasználó ID
+     */
     public int getUserID() {
         return userID;
     }
 
+    /**
+     * Visszaadja a kölcsönzés kezdetének dátumát.
+     * @return kölcsönzés kezdetének dátuma
+     */
     public LocalDate getLoanStart() {
         return loanStart;
     }
 
+    /**
+     * Visszaadja a kölcsönzés végének dátumát.
+     * @return kölcsönzés végének dátuma
+     */
     public LocalDate getLoanEnd() {
         return loanEnd;
     }

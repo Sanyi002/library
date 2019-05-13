@@ -16,11 +16,19 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+
+    /**
+     * Logger osztály egy példánya.
+     */
+    private Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     /**
      * UserModel osztály egy példánya.
