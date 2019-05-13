@@ -21,3 +21,5 @@ progtech_projekt.iml
 hs_err_pid*
 
 src/main/resources/META-INF/persistence\.xml
+
+\.DS_Store
