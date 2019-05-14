@@ -22,7 +22,7 @@ public class DatabaseFunctions implements AutoCloseable {
                 entityManagerFactory = Persistence.createEntityManagerFactory("jpa-persistence-unit-1");
             }
         } catch (Exception ex) {
-            System.out.println("Fatal: Unable to create entity manager factory" + ex);
+            System.out.println("Fatal: Unable to create entity manager factory" + ex.getStackTrace());
         }
     }
 
