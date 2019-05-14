@@ -3,12 +3,19 @@ package hu.unideb.inf.library.model;
 import hu.unideb.inf.library.model.pojo.Book;
 import javafx.scene.control.TextField;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
 
 public class BookModel implements AutoCloseable {
+
+    /**
+     * Logger osztály egy példánya.
+     */
+    private Logger logger = LoggerFactory.getLogger(BookModel.class);
 
     /**
      * EntityManager osztály egy példánya.
@@ -36,14 +43,13 @@ public class BookModel implements AutoCloseable {
                     "SELECT b FROM Book b", Book.class);
             list = query.getResultList();
         } catch (Exception ex) {
-            // TODO: Log infó: Hiba
+            logger.error("Hiba az adatok lekérésekor! " + ex);
         }
         return list;
      }
 
     /**
      * Új könyv hozzáadása az adatbázishoz.
-     * // TODO
      * @param isbn könyv ISBN száma
      * @param title könyv címe
      * @param author könyv szerzője
@@ -60,10 +66,8 @@ public class BookModel implements AutoCloseable {
             em.persist(nb);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            // TODO: Log infó: Hiba az új könyv hozzáadásakor
-            System.out.println("Hiba az új könyv hozzáadásakor: "+ ex);
+            logger.error("Hiba az új könyv hozzáadásakor! " + ex);
         }
-
     }
 
     /**
@@ -81,7 +85,7 @@ public class BookModel implements AutoCloseable {
                         "SELECT b FROM Book b WHERE title LIKE '%" + title + "%'", Book.class);
                 result = query.getResultList();
             } catch (Exception ex) {
-                // TODO: Log infó: Hiba
+                logger.error("Hiba az adatok lekérésekor! " + ex);
             }
         } else if(!author.isEmpty() && title.isEmpty()) {
             try {
@@ -89,7 +93,7 @@ public class BookModel implements AutoCloseable {
                         "SELECT b FROM Book b WHERE author LIKE '%" + author + "%'", Book.class);
                 result = query.getResultList();
             } catch (Exception ex) {
-                // TODO: Log infó: Hiba
+                logger.info("Hiba az adatok lekérésekor! " + ex);
             }
         } else {
             try {
@@ -97,7 +101,7 @@ public class BookModel implements AutoCloseable {
                         "SELECT b FROM Book b WHERE title LIKE '%" + title + "%' AND author LIKE '%" + author + "%'", Book.class);
                 result = query.getResultList();
             } catch (Exception ex) {
-                // TODO: Log infó: Hiba
+                logger.error("Hiba az adatok lekérésekor! " + ex);
             }
         }
 
@@ -114,7 +118,7 @@ public class BookModel implements AutoCloseable {
             em.merge(book);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            // TODO: Log infó: Nem sikerült a könyv frissítése.
+            logger.error("Hiba az adatok módosításakor! " + ex);
         }
     }
 
@@ -125,22 +129,27 @@ public class BookModel implements AutoCloseable {
      */
     public int bookValidation(Map<String, TextField> inputs) {
         if(inputs.entrySet().stream().anyMatch(textField -> textField.getValue().getText().trim().isEmpty())) {
+            logger.error("Sikertelen könyv validálás! Üres mezők.");
             return -1;
+
         } else {
             try {
+                logger.error("Sikertelen könyv validálás! Hibás mező érték.");
                 Integer.parseInt(inputs.get("bookPagesInput").getText());
             } catch (NumberFormatException ex) {
                 return 0;
             }
+
             try {
+                logger.error("Sikertelen könyv validálás! Hibás mező érték.");
                 Integer.parseInt(inputs.get("bookReleaseDateInput").getText());
             } catch (NumberFormatException ex) {
                 return 0;
             }
         }
-        return 1;
 
-        // TODO: Log infó
+        logger.info("Sikeres könyv validálás.");
+        return 1;
     }
 
     /**
@@ -154,11 +163,9 @@ public class BookModel implements AutoCloseable {
             TypedQuery<Book> query = em.createNamedQuery("BookModel.getLoanableBooks",Book.class);
             result = query.getResultList();
         } catch (Exception ex) {
-
+            logger.error("Hiba az adatok lekérésekor! " + ex);
         }
         return result;
-
-        // TODO: Log infó
     }
 
     /**

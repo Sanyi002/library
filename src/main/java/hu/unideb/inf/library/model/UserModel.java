@@ -2,6 +2,8 @@ package hu.unideb.inf.library.model;
 
 import hu.unideb.inf.library.model.pojo.User;
 import org.joda.time.LocalDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -9,6 +11,11 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class UserModel implements AutoCloseable {
+
+    /**
+     * Logger osztály egy példánya.
+     */
+    private Logger logger = LoggerFactory.getLogger(UserModel.class);
 
     /**
      * EntityManager osztály egy példánya.
@@ -33,15 +40,13 @@ public class UserModel implements AutoCloseable {
         User user = null;
 
         try {
-            // TODO: Logger info: Sikeres felhasználó lekérés loggolása
             TypedQuery<User> query = em.createQuery("" +
                     "SELECT u " +
                     "FROM User u " +
                     "WHERE userName = '" + userName + "' and password = '" + password + "'", User.class);
             user = query.getSingleResult();
         } catch (Exception ex) {
-            // TODO: Logger info: Hiba loggolása
-            System.out.println("hiba!! " + ex.getMessage());
+            logger.error("Hiba a felhasználó lekérésekor! " + ex);
         }
 
         return user;
@@ -58,7 +63,7 @@ public class UserModel implements AutoCloseable {
             TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.admin = false", User.class);
             result = query.getResultList();
         } catch (Exception ex) {
-            // TODO: Log infó
+            logger.error("Hiba az adatok lekérésekor! " + ex);
         }
 
         return result;

@@ -5,10 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
 public class Main extends Application {
+
+    private Logger logger = LoggerFactory.getLogger(Main.class);
 
     /**
      * Program belépési pontja
@@ -28,7 +32,7 @@ public class Main extends Application {
 
             stage.show();
         } catch (IOException ex) {
-            //TODO: Log infó
+            logger.error("Hiba a kezdőképernyő betöltésekor! " + ex);
         }
 
     }

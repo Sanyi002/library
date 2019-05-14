@@ -20,11 +20,18 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ReturnBookController implements Initializable {
+
+    /**
+     * Logger osztály egy példánya.
+     */
+    private Logger logger = LoggerFactory.getLogger(ReturnBookController.class);
 
     /**
      * Kikölcsönzött könyvek táblázata.
@@ -102,12 +109,16 @@ public class ReturnBookController implements Initializable {
             final Node source = (Node) event.getSource();
             final Stage stage = (Stage) source.getScene().getWindow();
             stage.close();
+
+            logger.info("A kölcsönzés eltávolítása sikeres.");
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Library - Info");
             alert.setHeaderText(null);
             alert.setContentText("A kölcsönzés eltávolítás sikertelen! Hiányzó adatok!");
             alert.showAndWait();
+
+            logger.info("A kölcsönzés eltávolítása sikertelen! Hiányzó adatok!");
         }
     }
 
@@ -165,7 +176,7 @@ public class ReturnBookController implements Initializable {
             selectedBookIsbnField.setText(selectedLoan.getBookISBN());
             selectedUserIdField.setText(String.valueOf(selectedLoan.getUserID()));
 
-            // TODO: Log infó
+            logger.info("Kiválasztott kölcsönzés adatainak betöltése a TextField-ekbe.");
         }
     }
 

@@ -18,12 +18,19 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HomeController implements Initializable {
+
+    /**
+     * Logger osztály egy példánya.
+     */
+    Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     /**
      * BookModel osztály egy példánya.
@@ -249,6 +256,8 @@ public class HomeController implements Initializable {
 
             showAllBook();
         }
+
+        logger.info("Könyvek keresése");
     }
 
     /**
@@ -271,9 +280,9 @@ public class HomeController implements Initializable {
                 sbc = fxmlLoader.getController();
                 sbc.init(selectedBook, loggedUser);
 
-                // TODO: Log infó: Kiválasztott könyv ablaka megnyitva.
+                logger.info("Kiválasztott könyv ablaka megnyitva.");
             } catch (IOException ex) {
-                // TODO: Log infó: Kiválasztott könyv ablak megnyitása sikertelen.
+                logger.error("Kiválasztott könyv ablakának megnyitása sikertelen! " + ex);
             }
         }
     }
@@ -286,7 +295,6 @@ public class HomeController implements Initializable {
     @FXML
     private void triggerAddBookScreen(Event event) throws IOException {
         try {
-            // TODO: Log info: Új könyv hozzáadása ablak megnyitva.
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AddBookScreen.fxml"));
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
@@ -294,9 +302,9 @@ public class HomeController implements Initializable {
             stage.setTitle("Library - Add new book");
             stage.setScene(scene);
             stage.show();
+            logger.info("Új könyv hozzáadása ablak megnyitva.");
         } catch (IOException ex) {
-            ex.printStackTrace();
-            // TODO: Log info: Új könyv hozzáadása ablak megnyitása sikertelen.
+            logger.error("Új könyv hozzáadása ablak megnyitása sikertelen! " + ex);
         }
     }
 
@@ -319,7 +327,6 @@ public class HomeController implements Initializable {
     @FXML
     private void triggerLoanScreen(Event event) throws IOException{
         try {
-            // TODO: Log info: Új könyv hozzáadása ablak megnyitva.
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LoanBookScreen.fxml"));
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
@@ -327,9 +334,9 @@ public class HomeController implements Initializable {
             stage.setTitle("Library - Loan book");
             stage.setScene(scene);
             stage.show();
+            logger.info("Könyv kölcsönzése ablak megnyitva.");
         } catch (IOException ex) {
-            ex.printStackTrace();
-            // TODO: Log info: Új könyv hozzáadása ablak megnyitása sikertelen.
+           logger.error("Könyv kölcsönzése ablak megnyitása sikertelen! " + ex);
         }
     }
 
@@ -341,7 +348,6 @@ public class HomeController implements Initializable {
     @FXML
     private void triggerReturnScreen(Event event) throws IOException {
         try {
-            // TODO: Log info: Új könyv hozzáadása ablak megnyitva.
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ReturnBookScreen.fxml"));
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
@@ -349,9 +355,10 @@ public class HomeController implements Initializable {
             stage.setTitle("Library - Return book");
             stage.setScene(scene);
             stage.show();
+            logger.info("Könyv visszavételének ablaka megnyitva.");
         } catch (IOException ex) {
             ex.printStackTrace();
-            // TODO: Log info: Új könyv hozzáadása ablak megnyitása sikertelen.
+            logger.error("Könyv visszavétele ablakának megnyitása sikertelen! " + ex);
         }
     }
 
@@ -362,7 +369,6 @@ public class HomeController implements Initializable {
     @FXML
     private void triggerLoansScreen(Event event) {
         try {
-            // TODO: Log info: Új könyv hozzáadása ablak megnyitva.
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LoansScreen.fxml"));
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
@@ -373,9 +379,11 @@ public class HomeController implements Initializable {
 
             lc = fxmlLoader.getController();
             lc.init(loggedUser);
+
+            logger.info("Kölcsönzések ablaka megnyitva.");
         } catch (IOException ex) {
             ex.printStackTrace();
-            // TODO: Log info: Új könyv hozzáadása ablak megnyitása sikertelen.
+            logger.error("Kölcsönzések ablakának megnyitása sikertelen! " + ex);
         }
     }
 
@@ -386,7 +394,6 @@ public class HomeController implements Initializable {
     @FXML
     private void triggerLogout(Event event) {
         try {
-            // TODO: Log info
             Stage stage1 = (Stage) logoutBtn.getScene().getWindow();
             stage1.close();
 
@@ -400,9 +407,9 @@ public class HomeController implements Initializable {
 
             stage.show();
 
+            logger.info("Kijelentkezés megtörtént. Kezdőképernyő betöltve.");
         } catch (IOException ex) {
-            ex.printStackTrace();
-            // TODO: Log info
+            logger.error("Hiba a kezdőképernyő betöltésénél! " + ex);
         }
     }
 

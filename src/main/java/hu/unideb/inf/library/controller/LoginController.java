@@ -84,8 +84,11 @@ public class LoginController implements Initializable {
             Rectangle2D stageBounds = Screen.getPrimary().getBounds();
             stage.setX((stageBounds.getWidth() - stage.getWidth()) / 2);
             stage.setY((stageBounds.getHeight() - stage.getHeight()) / 2);
+
+            logger.info("A felhasználó bejelentkezett.");
         } else {
             loginErrorMsg.setText("Hibás felhasználónév vagy jelszó!");
+            logger.error("Hibás felhasználónév vagy jelszó!");
         }
 
 

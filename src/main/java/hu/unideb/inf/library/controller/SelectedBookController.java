@@ -11,11 +11,18 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.*;
 
 public class SelectedBookController implements Initializable {
+
+    /**
+     * Logger osztály egy példánya.
+     */
+    private Logger logger = LoggerFactory.getLogger(SelectedBookController.class);
 
     /**
      * A User osztály egy példánya.
@@ -45,6 +52,9 @@ public class SelectedBookController implements Initializable {
      */
     private BookModel bm;
 
+    /**
+     * A LoanModel egy példánya.
+     */
     private LoanModel lm;
 
     /**
@@ -196,7 +206,7 @@ public class SelectedBookController implements Initializable {
         if(loggedUser.getAdmin()) {
             inputFields.forEach((k,v) -> v.setEditable(true));
             selectedBookSaveBtn.setVisible(true);
-            // TODO: Log infó
+            logger.info("A bejelentkezett felhasználó admin. Szerkesztés gomb láthatóvá tétele.");
         }
     }
 
@@ -230,12 +240,16 @@ public class SelectedBookController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Sikeres módosítás!");
                 alert.showAndWait();
+
+                logger.info("Könyv adatainak sikeres módosítása.");
             } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Library - Info");
                 alert.setHeaderText(null);
                 alert.setContentText("Nem menthető a módosítás! Egyik mező értéke sem változott!");
                 alert.showAndWait();
+
+                logger.error("Könyv adatainak sikertelen módosítása! Egyik mező értéke sem változott!");
             }
         } else if(bm.bookValidation(inputFields) == 0) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -243,14 +257,16 @@ public class SelectedBookController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Nem menthető a módosítás! Hibás mező érték!");
             alert.showAndWait();
+
+            logger.error("Könyv adatainak sikertelen módosítása! Hibás mező érték!");
         } else if(bm.bookValidation(inputFields) == -1) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Library - Info");
             alert.setHeaderText(null);
             alert.setContentText("Nem menthető a módosítás! Hiányos mező érték!");
             alert.showAndWait();
-        }
 
-        // TODO: Log infók
+            logger.error("Könyv adatainak sikertelen módosítása! Hiányos mező érték!");
+        }
     }
 }

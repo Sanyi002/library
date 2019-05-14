@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.*;
@@ -16,6 +18,11 @@ public class AddBookController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.bm = new BookModel();
     }
+
+    /**
+     * Logger osztály egy példánya.
+     */
+    private Logger logger = LoggerFactory.getLogger(AddBookController.class);
 
     /**
      * BookModel osztály egy példánya.
@@ -87,7 +94,6 @@ public class AddBookController implements Initializable {
      * @param event
      */
     @FXML
-    // TODO: Log infók
     private void triggerAddBook(Event event) {
         inputFields.put("bookIsbnInput",bookIsbnInput);
         inputFields.put("bookTitleInput", bookTitleInput);
@@ -101,9 +107,13 @@ public class AddBookController implements Initializable {
         if(bm.bookValidation(inputFields) == -1) {
             addBookErrorMsg.setStyle("-fx-text-fill: RED");
             addBookErrorMsg.setText("Új könyv hozzáadása sikertelen! Minden mező kitöltése kötelező!");
+
+            logger.error("Új könyv hozzáadása sikertelen! Hiányos mezők!");
         } else if(bm.bookValidation(inputFields) == 0) {
             addBookErrorMsg.setStyle("-fx-text-fill: RED");
             addBookErrorMsg.setText("Új könyv hozzáadása sikertelen! Hibás mező érték!");
+
+            logger.error("Új könyv hozzáadása sikertelen! Hibás mező érték!");
         } else {
             bm.pushNewBook(bookIsbnInput.getText(),bookTitleInput.getText(),bookAuthorInput.getText(),
                 bookPublisherInput.getText(),Integer.parseInt(bookReleaseDateInput.getText()),
@@ -113,6 +123,8 @@ public class AddBookController implements Initializable {
             addBookErrorMsg.setStyle("-fx-text-fill: GREEN");
             addBookErrorMsg.setText("Új könyv hozzáadva az adatbázishoz!");
             inputFields.forEach((k,v) -> v.clear());
+
+            logger.info("Új könyv hozzáadva az adatbázishoz!");
         }
 
     }

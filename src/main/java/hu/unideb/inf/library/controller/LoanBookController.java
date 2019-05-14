@@ -19,11 +19,18 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoanBookController implements Initializable {
+
+    /**
+     * Logger osztály egy példánya.
+     */
+    Logger logger = LoggerFactory.getLogger(LoanBookController.class);
 
     /**
      * BookModel osztály egy példánya.
@@ -198,8 +205,6 @@ public class LoanBookController implements Initializable {
 
         loanBookUserTable.getColumns().addAll(userIdColumn, userNameColumn);
         loanBookUserTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-        // TODO: Log infó
     }
 
     /**
@@ -221,16 +226,18 @@ public class LoanBookController implements Initializable {
             final Node source = (Node) event.getSource();
             final Stage stage = (Stage) source.getScene().getWindow();
             stage.close();
+
+            logger.info("A kölcsönzés sikeresen felvéve.");
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Library - Info");
             alert.setHeaderText(null);
             alert.setContentText("A kölcsönzés felvétele sikertelen! Hiányzó adatok!");
             alert.showAndWait();
+
+            logger.error("A kölcsönzés felvétele sikertelen! Hiányzó adatok!");
         }
 
-
-        // TODO: Log infó
     }
 
     /**
@@ -259,7 +266,7 @@ public class LoanBookController implements Initializable {
             bookIsbnField.setText(selectedBook.getIsbn());
             bookTitleField.setText(selectedBook.getTitle());
 
-            // TODO: Log infó
+            logger.info("Kiválasztott könyv adatainak betöltése a TextField-ekbe.");
         }
     }
 
@@ -273,7 +280,7 @@ public class LoanBookController implements Initializable {
             userIdField.setText(String.valueOf(selectedUser.getId()));
             userNameField.setText(selectedUser.getName());
 
-            // TODO: Log infó
+            logger.info("Kiválasztott felhasználó adatainak betöltése a TextField-ekbe.");
         }
     }
 }

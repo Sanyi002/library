@@ -2,11 +2,18 @@ package hu.unideb.inf.library.model;
 
 import hu.unideb.inf.library.model.pojo.Loan;
 import hu.unideb.inf.library.model.pojo.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.List;
 
 public class LoanModel implements AutoCloseable {
+
+    /**
+     * Logger osztály egy példánya.
+     */
+    private Logger logger = LoggerFactory.getLogger(LoanModel.class);
 
     /**
      * EntityManager osztály egy példánya.
@@ -33,7 +40,7 @@ public class LoanModel implements AutoCloseable {
             em.persist(loan);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            // TODO: Log info
+            logger.error("Hiba az adatok betöltésekor! " + ex);
         }
     }
 
@@ -51,7 +58,7 @@ public class LoanModel implements AutoCloseable {
                     "SELECT l FROM Loan l WHERE l.bookISBN = '" + isbn + "'", Loan.class);
             loan = (Loan) query.getSingleResult();
         } catch (Exception ex) {
-            // TODO
+            logger.error("Hiba az adatok lekérésekor! " + ex);
         }
 
         if(loan == null) {
@@ -75,7 +82,7 @@ public class LoanModel implements AutoCloseable {
                     "SELECT l FROM Loan l", Loan.class);
             result = query.getResultList();
         } catch (Exception ex) {
-            // TODO: Log infó
+            logger.info("Hiba az adatok lekérésekor! " + ex);
         }
 
         return result;
@@ -91,7 +98,7 @@ public class LoanModel implements AutoCloseable {
             em.remove(loan);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            //TODO: Log infó
+            logger.error("Hiba az adatok módosításakor! " + ex);
         }
     }
 
@@ -108,7 +115,7 @@ public class LoanModel implements AutoCloseable {
                     "SELECT l FROM Loan l WHERE l.userID = " + user.getId(), Loan.class);
             result = query.getResultList();
         } catch (Exception ex) {
-            // TODO: Log infó
+            logger.error("Hiba az adatok lekérésekor! " + ex);
         }
 
         return result;
